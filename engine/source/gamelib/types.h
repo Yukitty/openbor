@@ -307,7 +307,7 @@ typedef struct
     short hShift;	     // Offset for X-Axis Text
     short vShift;	     // Offset for Y-Axis Text
     short dOffset;	 // Offset for Debug Text
-    short shiftpos[4];
+    short shiftpos[6];
     char filter;
     char mode;
     char pixel;

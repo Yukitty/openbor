@@ -535,7 +535,7 @@ int					gameOver			= 0;
 int					showComplete		= 0;
 char				*currentScene		= NULL;
 int                 tospeedup           = 0;          			// If set will speed the level back up after a boss hits the ground
-int                 reached[MAX_PLAYERS]          = {0, 0, 0, 0};			// Used with TYPE_ENDLEVEL to determine which players have reached the point //4player
+int                 reached[MAX_PLAYERS]          = {0, 0, 0, 0, 0, 0};			// Used with TYPE_ENDLEVEL to determine which players have reached the point //4player //6player
 int                 noslowfx			= 0;           			// Flag to determine if sound speed when hitting opponent slows or not
 int                 equalairpause 		= 0;         			// If set to 1, there will be no extra pausetime for players who hit multiple enemies in midair
 int                 hiscorebg			= 0;					// If set to 1, will look for a background image to display at the highscore screen
@@ -574,17 +574,17 @@ entity				*stalker				= NULL;					// an enemy (usually) tries to go behind the p
 entity				*firstplayer			= NULL;
 int					stalking			= 0;
 int					nextplan			= 0;
-int                 plife[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player lifebar
-int                 plifeX[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player lifebar 'x'
-int                 plifeN[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player lifebar number of lives
-int                 picon[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player icon
-int                 piconw[MAX_PLAYERS][2]        = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player weapon icons
-int                 mpicon[MAX_PLAYERS][2]        = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable magicbar player icon
-int                 pnameJ[MAX_PLAYERS][7]        = {{0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}}; // Used for customizable player name, Select Hero, (Credits, Press Start, Game Over) when joining
-int                 pscore[MAX_PLAYERS][7]        = {{0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}}; // Used for customizable player name, dash, score
-int                 pshoot[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player shootnum
-int                 prush[MAX_PLAYERS][8]         = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}; // Used for customizable player combo/rush system
-int                 psmenu[MAX_PLAYERS][4]        = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}; // Used for customizable player placement in select menu
+int                 plife[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player lifebar
+int                 plifeX[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player lifebar 'x'
+int                 plifeN[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player lifebar number of lives
+int                 picon[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player icon
+int                 piconw[MAX_PLAYERS][2]        = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player weapon icons
+int                 mpicon[MAX_PLAYERS][2]        = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable magicbar player icon
+int                 pnameJ[MAX_PLAYERS][7]        = {{0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}}; // Used for customizable player name, Select Hero, (Credits, Press Start, Game Over) when joining
+int                 pscore[MAX_PLAYERS][7]        = {{0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}, {0, 0, 0, 0, 0, 0, -1}}; // Used for customizable player name, dash, score
+int                 pshoot[MAX_PLAYERS][3]        = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable player shootnum
+int                 prush[MAX_PLAYERS][8]         = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}}; // Used for customizable player combo/rush system
+int                 psmenu[MAX_PLAYERS][4]        = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}; // Used for customizable player placement in select menu
 int                 mpcolourtable[11]   = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int                 hpcolourtable[11]   = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int                 ldcolourtable[11]   = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -656,9 +656,9 @@ char                bgicon_path[MAX_BUFFER_LEN]    = {""};
 int                 olicon    			= -1;
 int                 olicon_offsets[3]	= {0, 0, 0};
 char                olicon_path[MAX_BUFFER_LEN]    = {""};
-int                 elife[4][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable enemy lifebar
-int                 ename[4][3]         = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable enemy name
-int                 eicon[4][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable enemy icon
+int                 elife[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable enemy lifebar
+int                 ename[MAX_PLAYERS][3]         = {{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}}; // Used for customizable enemy name
+int                 eicon[MAX_PLAYERS][2]         = {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable enemy icon
 int                 scomplete[6]		= {0, 0, 0, 0, 0, 0};		// Used for customizable Stage # Complete
 int                 cbonus[10]          = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Used for customizable clear bonus
 int                 lbonus[10]          = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // Used for customizable life bonus
@@ -693,8 +693,8 @@ int                 noaircancel         = 0;					// Now, you can make jumping at
 int                 nomaxrushreset[5]   = {0, 0, 0, 0, 0};
 int			        mpbartext[4]		= { -1, 0, 0, 0};			// Array for adjusting MP status text (font, Xpos, Ypos, Display type).
 int			        lbartext[4]			= { -1, 0, 0, 0};			// Array for adjusting HP status text (font, Xpos, Ypos, Display type).
-int                 pmp[4][2]			= {{0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player mpbar
-int                 spdirection[4]		= {1, 0, 1, 0};			// Used for Select Player Direction for select player screen
+int                 pmp[MAX_PLAYERS][2]	= {{0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}}; // Used for customizable player mpbar
+int                 spdirection[MAX_PLAYERS]	= {1, 0, 1, 0, 1, 0};			// Used for Select Player Direction for select player screen
 int                 bonus				= 0;					// Used for unlocking Bonus difficulties
 int                 versusdamage		= 2;					// Used for setting mode. (ability to hit other players)
 int                 z_coords[3]			= {0, 0, 0};				// Used for setting customizable walkable area
@@ -748,7 +748,9 @@ s_playercontrols    playercontrols1;
 s_playercontrols    playercontrols2;
 s_playercontrols    playercontrols3;
 s_playercontrols    playercontrols4;
-s_playercontrols   *playercontrolpointers[] = {&playercontrols1, &playercontrols2, &playercontrols3, &playercontrols4};
+s_playercontrols    playercontrols5;
+s_playercontrols    playercontrols6;
+s_playercontrols   *playercontrolpointers[MAX_PLAYERS] = {&playercontrols1, &playercontrols2, &playercontrols3, &playercontrols4, &playercontrols5, &playercontrols6};
 s_playercontrols    default_control;
 int default_keys[MAX_BTN_NUM];
 
@@ -1118,6 +1120,14 @@ void load_scripts()
     {
         Script_Clear(&score_script[3],      2);
     }
+    if(!load_script(&score_script[4],   "data/scripts/score5.c"))
+    {
+        Script_Clear(&score_script[4],      2);
+    }
+    if(!load_script(&score_script[5],   "data/scripts/score6.c"))
+    {
+        Script_Clear(&score_script[5],      2);
+    }
     if(!load_script(&key_script[0],     "data/scripts/key1.c"))
     {
         Script_Clear(&key_script[0],        2);
@@ -1133,6 +1143,14 @@ void load_scripts()
     if(!load_script(&key_script[3],     "data/scripts/key4.c"))
     {
         Script_Clear(&key_script[3],        2);
+    }
+    if(!load_script(&key_script[4],     "data/scripts/key5.c"))
+    {
+        Script_Clear(&key_script[4],        2);
+    }
+    if(!load_script(&key_script[5],     "data/scripts/key6.c"))
+    {
+        Script_Clear(&key_script[5],        2);
     }
     if(!load_script(&join_script[0],    "data/scripts/join1.c"))
     {
@@ -1150,6 +1168,14 @@ void load_scripts()
     {
         Script_Clear(&join_script[3],       2);
     }
+    if(!load_script(&join_script[4],    "data/scripts/join5.c"))
+    {
+        Script_Clear(&join_script[4],       2);
+    }
+    if(!load_script(&join_script[5],    "data/scripts/join6.c"))
+    {
+        Script_Clear(&join_script[5],       2);
+    }
     if(!load_script(&respawn_script[0], "data/scripts/respawn1.c"))
     {
         Script_Clear(&respawn_script[0],    2);
@@ -1166,6 +1192,14 @@ void load_scripts()
     {
         Script_Clear(&respawn_script[3],    2);
     }
+    if(!load_script(&respawn_script[4], "data/scripts/respawn5.c"))
+    {
+        Script_Clear(&respawn_script[4],    2);
+    }
+    if(!load_script(&respawn_script[5], "data/scripts/respawn6.c"))
+    {
+        Script_Clear(&respawn_script[5],    2);
+    }
     if(!load_script(&pdie_script[0],    "data/scripts/die1.c"))
     {
         Script_Clear(&pdie_script[0],       2);
@@ -1181,6 +1215,14 @@ void load_scripts()
     if(!load_script(&pdie_script[3],    "data/scripts/die4.c"))
     {
         Script_Clear(&pdie_script[3],       2);
+    }
+    if(!load_script(&pdie_script[4],    "data/scripts/die5.c"))
+    {
+        Script_Clear(&pdie_script[4],       2);
+    }
+    if(!load_script(&pdie_script[5],    "data/scripts/die6.c"))
+    {
+        Script_Clear(&pdie_script[5],       2);
     }
     Script_Compile(&update_script);
     Script_Compile(&updated_script);
@@ -2520,6 +2562,42 @@ void clearbuttons(int player)
         savedata.keys[3][SDID_SCREENSHOT] = CONTROL_DEFAULT4_SCREENSHOT;
         #ifdef SDL
             //savedata.keys[3][SDID_ESC]       = CONTROL_DEFAULT4_ESC;
+        #endif
+    }
+    else if (player == 4)
+    {
+        savedata.keys[4][SDID_MOVEUP]    = CONTROL_DEFAULT5_UP;
+        savedata.keys[4][SDID_MOVEDOWN]  = CONTROL_DEFAULT5_DOWN;
+        savedata.keys[4][SDID_MOVELEFT]  = CONTROL_DEFAULT5_LEFT;
+        savedata.keys[4][SDID_MOVERIGHT] = CONTROL_DEFAULT5_RIGHT;
+        savedata.keys[4][SDID_ATTACK]    = CONTROL_DEFAULT5_FIRE1;
+        savedata.keys[4][SDID_ATTACK2]   = CONTROL_DEFAULT5_FIRE2;
+        savedata.keys[4][SDID_ATTACK3]   = CONTROL_DEFAULT5_FIRE3;
+        savedata.keys[4][SDID_ATTACK4]   = CONTROL_DEFAULT5_FIRE4;
+        savedata.keys[4][SDID_JUMP]      = CONTROL_DEFAULT5_FIRE5;
+        savedata.keys[4][SDID_SPECIAL]   = CONTROL_DEFAULT5_FIRE6;
+        savedata.keys[4][SDID_START]     = CONTROL_DEFAULT5_START;
+        savedata.keys[4][SDID_SCREENSHOT] = CONTROL_DEFAULT5_SCREENSHOT;
+        #ifdef SDL
+            //savedata.keys[4][SDID_ESC]       = CONTROL_DEFAULT5_ESC;
+        #endif
+    }
+    else if (player == 5)
+    {
+        savedata.keys[5][SDID_MOVEUP]    = CONTROL_DEFAULT6_UP;
+        savedata.keys[5][SDID_MOVEDOWN]  = CONTROL_DEFAULT6_DOWN;
+        savedata.keys[5][SDID_MOVELEFT]  = CONTROL_DEFAULT6_LEFT;
+        savedata.keys[5][SDID_MOVERIGHT] = CONTROL_DEFAULT6_RIGHT;
+        savedata.keys[5][SDID_ATTACK]    = CONTROL_DEFAULT6_FIRE1;
+        savedata.keys[5][SDID_ATTACK2]   = CONTROL_DEFAULT6_FIRE2;
+        savedata.keys[5][SDID_ATTACK3]   = CONTROL_DEFAULT6_FIRE3;
+        savedata.keys[5][SDID_ATTACK4]   = CONTROL_DEFAULT6_FIRE4;
+        savedata.keys[5][SDID_JUMP]      = CONTROL_DEFAULT6_FIRE5;
+        savedata.keys[5][SDID_SPECIAL]   = CONTROL_DEFAULT6_FIRE6;
+        savedata.keys[5][SDID_START]     = CONTROL_DEFAULT6_START;
+        savedata.keys[5][SDID_SCREENSHOT] = CONTROL_DEFAULT6_SCREENSHOT;
+        #ifdef SDL
+            //savedata.keys[5][SDID_ESC]       = CONTROL_DEFAULT6_ESC;
         #endif
     }
 }
@@ -12675,12 +12753,18 @@ int load_models()
                 colourselect =  GET_INT_ARG(1);          //  6-2-2005
                 break;
             case CMD_MODELSTXT_SPDIRECTION:
+            {
                 // Select Player Direction for select player screen
-                spdirection[0] =  GET_INT_ARG(1);
-                spdirection[1] =  GET_INT_ARG(2);
-                spdirection[2] =  GET_INT_ARG(3);
-                spdirection[3] =  GET_INT_ARG(4);
+                char *arg;
+                for (i = 0; i < MAX_PLAYERS; i++)
+                {
+                    if((arg = GET_ARG(i + 1))[0])
+                    {
+                        spdirection[i] = atoi(arg);
+                    }
+                }
                 break;
+            }
             case CMD_MODELSTXT_AUTOLAND:
                 // New flag to determine if a player auto lands when thrown by another player (2 completely disables the ability to land)
                 autoland = GET_INT_ARG(1);
@@ -13132,17 +13216,17 @@ void load_levelorder()
     char *command;
     char *arg;
     char *errormessage = NULL;
-    int plifeUsed[2]  = {0, 0};
-    int elifeUsed[2]  = {0, 0};
-    int piconUsed[2]  = {0, 0};
-    int piconwUsed[2] = {0, 0};
-    int eiconUsed[4]  = {0, 0, 0, 0};
-    int pmpUsed[4]    = {0, 0, 0, 0};
-    int plifeXused[4] = {0, 0, 0, 0};     // 4-7-2006 New custimizable variable for players 'x'
-    int plifeNused[4] = {0, 0, 0, 0};     // 4-7-2006 New custimizable variable for players 'lives'
-    int enameused[4]  = {0, 0, 0, 0};     // 4-7-2006 New custimizable variable for enemy names
-    int pnameJused[4] = {0, 0, 0, 0};     // 1-8-2006 New custimizable variable for players name Select Hero
-    int pscoreUsed[4] = {0, 0, 0, 0};     // 1-8-2006 New custimizable variable for players name Select Hero
+    int plifeUsed[MAX_PLAYERS-2]  = {0, 0, 0, 0};
+    int elifeUsed[MAX_PLAYERS-2]  = {0, 0, 0, 0};
+    int piconUsed[MAX_PLAYERS-2]  = {0, 0, 0, 0};
+    int piconwUsed[MAX_PLAYERS-2] = {0, 0, 0, 0};
+    int eiconUsed[MAX_PLAYERS-2]  = {0, 0, 0, 0};
+    int pmpUsed[MAX_PLAYERS]    = {0, 0, 0, 0, 0, 0};
+    int plifeXused[MAX_PLAYERS] = {0, 0, 0, 0, 0, 0};     // 4-7-2006 New custimizable variable for players 'x'
+    int plifeNused[MAX_PLAYERS] = {0, 0, 0, 0, 0, 0};     // 4-7-2006 New custimizable variable for players 'lives'
+    int enameused[MAX_PLAYERS]  = {0, 0, 0, 0, 0, 0};     // 4-7-2006 New custimizable variable for enemy names
+    int pnameJused[MAX_PLAYERS] = {0, 0, 0, 0, 0, 0};     // 1-8-2006 New custimizable variable for players name Select Hero
+    int pscoreUsed[MAX_PLAYERS] = {0, 0, 0, 0, 0, 0};     // 1-8-2006 New custimizable variable for players name Select Hero
 
     ArgList arglist;
     char argbuf[MAX_ARG_LEN + 1] = "";
@@ -13172,23 +13256,28 @@ void load_levelorder()
     pos = 0;
 
     // Custom lifebar/timebox/icon positioning and size
-    picon[0][0] = piconw[0][0] = picon[2][0] = piconw[2][0] = eicon[0][0] = eicon[2][0] = 2;
-    picon[1][0] = piconw[1][0] = picon[3][0] = piconw[3][0] = eicon[1][0] = eicon[3][0] = 2 + P2_STATS_DIST;
+    picon[0][0] = piconw[0][0] = picon[2][0] = piconw[2][0] = picon[4][0] = piconw[4][0] = eicon[0][0] = eicon[2][0] = eicon[4][0] = 2;
+    picon[1][0] = piconw[1][0] = picon[3][0] = piconw[3][0] = picon[5][0] = piconw[5][0] = eicon[1][0] = eicon[3][0] = eicon[5][0] = 2 + P2_STATS_DIST;
     picon[0][1] = piconw[0][1] = picon[1][1] = piconw[1][1] = 2;
-    picon[2][1] = piconw[2][1] = picon[3][1] = piconw[3][1] = 202;
-    plife[0][0] = pmp[0][0] = plife[2][0] = pmp[2][0] = elife[0][0] = elife[2][0] = 20;
-    plife[1][0] = pmp[1][0] = plife[3][0] = pmp[3][0] = elife[1][0] = elife[3][0] = 20 + P2_STATS_DIST;
+    picon[2][1] = piconw[2][1] = picon[3][1] = piconw[3][1] = 2 + P3P4_STATS_DIST;
+    picon[4][1] = piconw[4][1] = picon[5][1] = piconw[5][1] = 2 + P5P6_STATS_DIST;
+    plife[0][0] = pmp[0][0] = plife[2][0] = pmp[2][0] = plife[4][0] = pmp[4][0] = elife[0][0] = elife[2][0] = elife[4][0] = 20;
+    plife[1][0] = pmp[1][0] = plife[3][0] = pmp[3][0] = plife[5][0] = pmp[5][0] = elife[1][0] = elife[3][0] = elife[5][0] = 20 + P2_STATS_DIST;
     plife[0][1] = plife[1][1] = 10;
-    plife[2][1] = plife[3][1] = 210;
+    plife[2][1] = plife[3][1] = 10 + P3P4_STATS_DIST;
+    plife[4][1] = plife[5][1] = 10 + P5P6_STATS_DIST;
     pmp[0][1] = pmp[1][1] = 18;
-    pmp[2][1] = pmp[3][1] = 218;
+    pmp[2][1] = pmp[3][1] = 18 + P3P4_STATS_DIST;
+    pmp[4][1] = pmp[5][1] = 18 + P5P6_STATS_DIST;
 
     memset(psmenu, 0, sizeof(psmenu));
 
     eicon[0][1] = eicon[1][1] = 19;
-    eicon[2][1] = eicon[3][1] = 220;
+    eicon[2][1] = eicon[3][1] = 19 + P3P4_STATS_DIST;
+    eicon[4][1] = eicon[5][1] = 19 + P5P6_STATS_DIST;
     elife[0][1] = elife[1][1] = 27;
-    elife[2][1] = elife[3][1] = 227;
+    elife[2][1] = elife[3][1] = 27 + P3P4_STATS_DIST;
+    elife[4][1] = elife[5][1] = 27 + P5P6_STATS_DIST;
 
     timeloc[0] = 149;
     timeloc[1] = 4;
@@ -13326,6 +13415,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2LIFE:
         case CMD_LEVELORDER_P3LIFE:
         case CMD_LEVELORDER_P4LIFE:
+        case CMD_LEVELORDER_P5LIFE:
+        case CMD_LEVELORDER_P6LIFE:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1LIFE:
@@ -13341,6 +13432,14 @@ void load_levelorder()
             case CMD_LEVELORDER_P4LIFE:
                 i = 3;
                 plifeUsed[1] = 1;
+                break;
+            case CMD_LEVELORDER_P5LIFE:
+                i = 4;
+                plifeUsed[2] = 1;
+                break;
+            case CMD_LEVELORDER_P6LIFE:
+                i = 5;
+                plifeUsed[3] = 1;
                 break;
             default:
                 assert(0);
@@ -13358,6 +13457,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2MP:
         case CMD_LEVELORDER_P3MP:
         case CMD_LEVELORDER_P4MP:
+        case CMD_LEVELORDER_P5MP:
+        case CMD_LEVELORDER_P6MP:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1MP:
@@ -13371,6 +13472,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4MP:
                 i = 3;
+                break;
+            case CMD_LEVELORDER_P5MP:
+                i = 4;
+                break;
+            case CMD_LEVELORDER_P6MP:
+                i = 5;
                 break;
             default:
                 assert(0);
@@ -13389,6 +13496,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2LIFEX:
         case CMD_LEVELORDER_P3LIFEX:
         case CMD_LEVELORDER_P4LIFEX:
+        case CMD_LEVELORDER_P5LIFEX:
+        case CMD_LEVELORDER_P6LIFEX:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1LIFEX:
@@ -13402,6 +13511,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4LIFEX:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_P5LIFEX:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6LIFEX:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -13417,6 +13532,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2LIFEN:
         case CMD_LEVELORDER_P3LIFEN:
         case CMD_LEVELORDER_P4LIFEN:
+        case CMD_LEVELORDER_P5LIFEN:
+        case CMD_LEVELORDER_P6LIFEN:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1LIFEN:
@@ -13430,6 +13547,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4LIFEN:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_P5LIFEN:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6LIFEN:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -13445,6 +13568,8 @@ void load_levelorder()
         case CMD_LEVELORDER_E2LIFE:
         case CMD_LEVELORDER_E3LIFE:
         case CMD_LEVELORDER_E4LIFE:
+        case CMD_LEVELORDER_E5LIFE:
+        case CMD_LEVELORDER_E6LIFE:
             switch(cmd)
             {
             case CMD_LEVELORDER_E1LIFE:
@@ -13460,6 +13585,14 @@ void load_levelorder()
             case CMD_LEVELORDER_E4LIFE:
                 i = 3;
                 elifeUsed[1] = 1;
+                break;
+            case CMD_LEVELORDER_E5LIFE:
+                i = 4;
+                elifeUsed[2] = 1;
+                break;
+            case CMD_LEVELORDER_E6LIFE:
+                i = 5;
+                elifeUsed[3] = 1;
                 break;
             default:
                 assert(0);
@@ -13477,6 +13610,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2ICON:
         case CMD_LEVELORDER_P3ICON:
         case CMD_LEVELORDER_P4ICON:
+        case CMD_LEVELORDER_P5ICON:
+        case CMD_LEVELORDER_P6ICON:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1ICON:
@@ -13492,6 +13627,14 @@ void load_levelorder()
             case CMD_LEVELORDER_P4ICON:
                 i = 3;
                 piconUsed[1] = 1;
+                break;
+            case CMD_LEVELORDER_P5ICON:
+                i = 4;
+                piconUsed[2] = 1;
+                break;
+            case CMD_LEVELORDER_P6ICON:
+                i = 5;
+                piconUsed[3] = 1;
                 break;
             default:
                 assert(0);
@@ -13509,6 +13652,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2ICONW:
         case CMD_LEVELORDER_P3ICONW:
         case CMD_LEVELORDER_P4ICONW:
+        case CMD_LEVELORDER_P5ICONW:
+        case CMD_LEVELORDER_P6ICONW:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1ICONW:
@@ -13524,6 +13669,14 @@ void load_levelorder()
             case CMD_LEVELORDER_P4ICONW:
                 i = 3;
                 piconwUsed[1] = 1;
+                break;
+            case CMD_LEVELORDER_P5ICONW:
+                i = 4;
+                piconwUsed[2] = 1;
+                break;
+            case CMD_LEVELORDER_P6ICONW:
+                i = 5;
+                piconwUsed[3] = 1;
                 break;
             default:
                 assert(0);
@@ -13541,6 +13694,8 @@ void load_levelorder()
         case CMD_LEVELORDER_MP2ICON:
         case CMD_LEVELORDER_MP3ICON:
         case CMD_LEVELORDER_MP4ICON:
+        case CMD_LEVELORDER_MP5ICON:
+        case CMD_LEVELORDER_MP6ICON:
             switch(cmd)
             {
             case CMD_LEVELORDER_MP1ICON:
@@ -13554,6 +13709,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_MP4ICON:
                 i = 3;
+                break;
+            case CMD_LEVELORDER_MP5ICON:
+                i = 4;
+                break;
+            case CMD_LEVELORDER_MP6ICON:
+                i = 5;
                 break;
             default:
                 assert(0);
@@ -13571,6 +13732,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2NAMEJ:
         case CMD_LEVELORDER_P3NAMEJ:
         case CMD_LEVELORDER_P4NAMEJ:
+        case CMD_LEVELORDER_P5NAMEJ:
+        case CMD_LEVELORDER_P6NAMEJ:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1NAMEJ:
@@ -13584,6 +13747,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4NAMEJ:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_P5NAMEJ:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6NAMEJ:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -13599,6 +13768,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2SCORE:
         case CMD_LEVELORDER_P3SCORE:
         case CMD_LEVELORDER_P4SCORE:
+        case CMD_LEVELORDER_P5SCORE:
+        case CMD_LEVELORDER_P6SCORE:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1SCORE:
@@ -13612,6 +13783,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4SCORE:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_P5SCORE:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6SCORE:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -13627,6 +13804,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2SHOOT:
         case CMD_LEVELORDER_P3SHOOT:
         case CMD_LEVELORDER_P4SHOOT:
+        case CMD_LEVELORDER_P5SHOOT:
+        case CMD_LEVELORDER_P6SHOOT:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1SHOOT:
@@ -13641,6 +13820,12 @@ void load_levelorder()
             case CMD_LEVELORDER_P4SHOOT:
                 j = 3;
                 break;
+            case CMD_LEVELORDER_P5SHOOT:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6SHOOT:
+                j = 5;
+                break;
             default:
                 assert(0);
             }
@@ -13654,6 +13839,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2RUSH:
         case CMD_LEVELORDER_P3RUSH:
         case CMD_LEVELORDER_P4RUSH:
+        case CMD_LEVELORDER_P5RUSH:
+        case CMD_LEVELORDER_P6RUSH:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1RUSH:
@@ -13668,6 +13855,12 @@ void load_levelorder()
             case CMD_LEVELORDER_P4RUSH:
                 j = 3;
                 break;
+            case CMD_LEVELORDER_P5RUSH:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6RUSH:
+                j = 5;
+                break;
             default:
                 assert(0);
             }
@@ -13681,6 +13874,8 @@ void load_levelorder()
         case CMD_LEVELORDER_E2ICON:
         case CMD_LEVELORDER_E3ICON:
         case CMD_LEVELORDER_E4ICON:
+        case CMD_LEVELORDER_E5ICON:
+        case CMD_LEVELORDER_E6ICON:
             switch(cmd)
             {
             case CMD_LEVELORDER_E1ICON:
@@ -13696,6 +13891,14 @@ void load_levelorder()
             case CMD_LEVELORDER_E4ICON:
                 i = 3;
                 eiconUsed[1] = 1;
+                break;
+            case CMD_LEVELORDER_E5ICON:
+                i = 4;
+                eiconUsed[2] = 1;
+                break;
+            case CMD_LEVELORDER_E6ICON:
+                i = 5;
+                eiconUsed[3] = 1;
                 break;
             default:
                 assert(0);
@@ -13713,6 +13916,8 @@ void load_levelorder()
         case CMD_LEVELORDER_E2NAME:
         case CMD_LEVELORDER_E3NAME:
         case CMD_LEVELORDER_E4NAME:
+        case CMD_LEVELORDER_E5NAME:
+        case CMD_LEVELORDER_E6NAME:
             switch(cmd)
             {
             case CMD_LEVELORDER_E1NAME:
@@ -13726,6 +13931,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_E4NAME:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_E5NAME:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_E6NAME:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -13741,6 +13952,8 @@ void load_levelorder()
         case CMD_LEVELORDER_P2SMENU:
         case CMD_LEVELORDER_P3SMENU:
         case CMD_LEVELORDER_P4SMENU:
+        case CMD_LEVELORDER_P5SMENU:
+        case CMD_LEVELORDER_P6SMENU:
             switch(cmd)
             {
             case CMD_LEVELORDER_P1SMENU:
@@ -13754,6 +13967,12 @@ void load_levelorder()
                 break;
             case CMD_LEVELORDER_P4SMENU:
                 j = 3;
+                break;
+            case CMD_LEVELORDER_P5SMENU:
+                j = 4;
+                break;
+            case CMD_LEVELORDER_P6SMENU:
+                j = 5;
                 break;
             default:
                 assert(0);
@@ -14051,6 +14270,16 @@ void load_levelorder()
         plife[3][0] = plife[1][0];
         plife[3][1] = plife[3][1] + (plife[1][1] - 10);
     }
+    if(!plifeUsed[2])
+    {
+        plife[4][0] = plife[0][0];
+        plife[4][1] = plife[4][1] + (plife[0][1] - 10);
+    }
+    if(!plifeUsed[3])
+    {
+        plife[5][0] = plife[1][0];
+        plife[5][1] = plife[5][1] + (plife[1][1] - 10);
+    }
 
     if(!elifeUsed[0])
     {
@@ -14061,6 +14290,16 @@ void load_levelorder()
     {
         elife[3][0] = elife[1][0];
         elife[3][1] = elife[3][1] + (elife[1][1] - 27);
+    }
+    if(!elifeUsed[2])
+    {
+        elife[4][0] = elife[0][0];
+        elife[4][1] = elife[4][1] + (elife[0][1] - 27);
+    }
+    if(!elifeUsed[3])
+    {
+        elife[5][0] = elife[1][0];
+        elife[5][1] = elife[5][1] + (elife[1][1] - 27);
     }
 
     if(!piconUsed[0])
@@ -14073,6 +14312,16 @@ void load_levelorder()
         picon[3][0] = picon[1][0];
         picon[3][1] = picon[3][1] + (picon[1][1] - 2);
     }
+    if(!piconUsed[2])
+    {
+        picon[4][0] = picon[0][0];
+        picon[4][1] = picon[4][1] + (picon[0][1] - 2);
+    }
+    if(!piconUsed[3])
+    {
+        picon[5][0] = picon[1][0];
+        picon[5][1] = picon[5][1] + (picon[1][1] - 2);
+    }
 
     if(!piconwUsed[0])
     {
@@ -14084,6 +14333,16 @@ void load_levelorder()
         piconw[3][0] = piconw[1][0];
         piconw[3][1] = piconw[3][1] + (piconw[1][1] - 2);
     }
+    if(!piconwUsed[2])
+    {
+        piconw[4][0] = piconw[0][0];
+        piconw[4][1] = piconw[4][1] + (piconw[0][1] - 2);
+    }
+    if(!piconwUsed[3])
+    {
+        piconw[5][0] = piconw[1][0];
+        piconw[5][1] = piconw[5][1] + (piconw[1][1] - 2);
+    }
 
     if(!eiconUsed[0])
     {
@@ -14094,6 +14353,16 @@ void load_levelorder()
     {
         eicon[3][0] = eicon[1][0];
         eicon[3][1] = eicon[3][1] + (eicon[1][1] - 19);
+    }
+    if(!eiconUsed[2])
+    {
+        eicon[4][0] = eicon[0][0];
+        eicon[4][1] = eicon[4][1] + (eicon[0][1] - 19);
+    }
+    if(!eiconUsed[3])
+    {
+        eicon[5][0] = eicon[1][0];
+        eicon[5][1] = eicon[5][1] + (eicon[1][1] - 19);
     }
 
     if(!pmpUsed[0])
@@ -14116,6 +14385,16 @@ void load_levelorder()
         pmp[3][0] = pmp[1][0];
         pmp[3][1] = pmp[1][1] + (pmp[1][1] - 18);
     }
+    if(!pmpUsed[4])
+    {
+        pmp[4][0] = pmp[0][0];
+        pmp[4][1] = pmp[4][1] + (pmp[0][1] - 18);
+    }
+    if(!pmpUsed[5])
+    {
+        pmp[5][0] = pmp[1][0];
+        pmp[5][1] = pmp[5][1] + (pmp[1][1] - 18);
+    }
 
     if(!plifeXused[0])
     {
@@ -14136,6 +14415,16 @@ void load_levelorder()
     {
         plifeX[3][0] = plife[3][0] + lbarstatus.size.x + 4;
         plifeX[3][1] = picon[3][1] + 7;
+    }
+    if(!plifeXused[4])
+    {
+        plifeX[4][0] = plife[4][0] + lbarstatus.size.x + 4;
+        plifeX[4][1] = picon[4][1] + 7;
+    }
+    if(!plifeXused[5])
+    {
+        plifeX[5][0] = plife[5][0] + lbarstatus.size.x + 4;
+        plifeX[5][1] = picon[5][1] + 7;
     }
     for(i = 0; i < MAX_PLAYERS; i++) if(plifeX[i][2] == -1)
         {
@@ -14161,6 +14450,16 @@ void load_levelorder()
     {
         plifeN[3][0] = plifeN[1][0];
         plifeN[3][1] = picon[3][1];
+    }
+    if(!plifeNused[4])
+    {
+        plifeN[4][0] = plifeN[0][0];
+        plifeN[4][1] = picon[4][1];
+    }
+    if(!plifeNused[5])
+    {
+        plifeN[5][0] = plifeN[1][0];
+        plifeN[5][1] = picon[5][1];
     }
     for(i = 0; i < MAX_PLAYERS; i++) if(plifeN[i][2] == -1)
         {
@@ -14191,6 +14490,18 @@ void load_levelorder()
         pnameJ[3][5] = pnameJ[3][1] = picon[3][1];
         pnameJ[3][3] = 10 + pnameJ[3][5];
     }
+    if(!pnameJused[4])
+    {
+        pnameJ[4][2] = pnameJ[4][4] = pnameJ[4][0] = plife[4][0] + 1;
+        pnameJ[4][5] = pnameJ[4][1] = picon[4][1];
+        pnameJ[4][3] = 10 + pnameJ[4][5];
+    }
+    if(!pnameJused[5])
+    {
+        pnameJ[5][2] = pnameJ[5][4] = pnameJ[5][0] = plife[5][0] + 1;
+        pnameJ[5][5] = pnameJ[5][1] = picon[5][1];
+        pnameJ[5][3] = 10 + pnameJ[5][5];
+    }
     for(i = 0; i < MAX_PLAYERS; i++) if(pnameJ[i][6] == -1)
         {
             pnameJ[i][6] = 0;
@@ -14216,6 +14527,16 @@ void load_levelorder()
         pscore[3][0] = plife[3][0] + 1;
         pscore[3][1] = picon[3][1];
     }
+    if(!pscoreUsed[4])
+    {
+        pscore[4][0] = plife[4][0] + 1;
+        pscore[4][1] = picon[4][1];
+    }
+    if(!pscoreUsed[5])
+    {
+        pscore[5][0] = plife[5][0] + 1;
+        pscore[5][1] = picon[5][1];
+    }
     for(i = 0; i < MAX_PLAYERS; i++) if(pscore[i][6] == -1)
         {
             pscore[i][6] = 0;
@@ -14240,6 +14561,16 @@ void load_levelorder()
     {
         ename[3][0] = ename[1][0];
         ename[3][1] = eicon[3][1];
+    }
+    if(!enameused[4])
+    {
+        ename[4][0] = ename[0][0];
+        ename[4][1] = eicon[4][1];
+    }
+    if(!enameused[5])
+    {
+        ename[5][0] = ename[1][0];
+        ename[5][1] = eicon[5][1];
     }
     for(i = 0; i < MAX_PLAYERS; i++) if(ename[i][2] == -1)
         {
@@ -15128,6 +15459,8 @@ void load_level(char *filename)
         case CMD_LEVEL_SPAWN2:
         case CMD_LEVEL_SPAWN3:
         case CMD_LEVEL_SPAWN4:
+        case CMD_LEVEL_SPAWN5:
+        case CMD_LEVEL_SPAWN6:
             switch(cmd)
             {
             case CMD_LEVEL_SPAWN1:
@@ -15141,6 +15474,12 @@ void load_level(char *filename)
                 break;
             case CMD_LEVEL_SPAWN4:
                 i = 3;
+                break;
+            case CMD_LEVEL_SPAWN5:
+                i = 4;
+                break;
+            case CMD_LEVEL_SPAWN6:
+                i = 5;
                 break;
             default:
                 assert(0);
@@ -15454,6 +15793,14 @@ void load_level(char *filename)
             // Entity only for 4p game
             next.spawnplayer_count = 3;
             break;
+        case CMD_LEVEL_5PSPAWN:
+            // Entity only for 5p game
+            next.spawnplayer_count = 4;
+            break;
+        case CMD_LEVEL_6PSPAWN:
+            // Entity only for 6p game
+            next.spawnplayer_count = 5;
+            break;
         case CMD_LEVEL_BOSS:
             next.boss = GET_INT_ARG(1);
             level->bossescount += next.boss ? 1 : 0;
@@ -15463,19 +15810,27 @@ void load_level(char *filename)
             next.flip = GET_INT_ARG(1);
             break;
         case CMD_LEVEL_HEALTH:
-            next.health[0] = next.health[1] = next.health[2] = next.health[3] = GET_INT_ARG(1);
+            next.health[0] = next.health[1] = next.health[2] = next.health[3] = next.health[4] = next.health[5] = GET_INT_ARG(1);
             break;
         case CMD_LEVEL_2PHEALTH:
             // Health the spawned entity will have if 2 people are playing
-            next.health[1] = next.health[2] = next.health[3] = GET_INT_ARG(1);
+            next.health[1] = next.health[2] = next.health[3] = next.health[4] = next.health[5] = GET_INT_ARG(1);
             break;
         case CMD_LEVEL_3PHEALTH:
-            // Health the spawned entity will have if 2 people are playing
-            next.health[2] = next.health[3] = GET_INT_ARG(1);  //4player
+            // Health the spawned entity will have if 3 people are playing
+            next.health[2] = next.health[3] = next.health[4] = next.health[5] = GET_INT_ARG(1);
             break;
         case CMD_LEVEL_4PHEALTH:
-            // Health the spawned entity will have if 2 people are playing
-            next.health[3] = GET_INT_ARG(1);  //4player
+            // Health the spawned entity will have if 4 people are playing
+            next.health[3] = next.health[4] = next.health[5] = GET_INT_ARG(1);
+            break;
+        case CMD_LEVEL_5PHEALTH:
+            // Health the spawned entity will have if 5 people are playing
+            next.health[4] = next.health[5] = GET_INT_ARG(1);
+            break;
+        case CMD_LEVEL_6PHEALTH:
+            // Health the spawned entity will have if 6 people are playing
+            next.health[5] = GET_INT_ARG(1);
             break;
         case CMD_LEVEL_MP:
             // mp values to put max mp for player by tails
@@ -15525,6 +15880,8 @@ void load_level(char *filename)
         case CMD_LEVEL_2PITEM:
         case CMD_LEVEL_3PITEM:
         case CMD_LEVEL_4PITEM:
+        case CMD_LEVEL_5PITEM:
+        case CMD_LEVEL_6PITEM:
             switch(cmd)
             {
                 // Item to be contained by new entry
@@ -15539,6 +15896,12 @@ void load_level(char *filename)
                 break;
             case CMD_LEVEL_4PITEM:
                 next.item_properties.player_count = 3;
+                break;
+            case CMD_LEVEL_5PITEM:
+                next.item_properties.player_count = 4;
+                break;
+            case CMD_LEVEL_6PITEM:
+                next.item_properties.player_count = 5;
                 break;
             default:
                 assert(0);
@@ -17079,7 +17442,7 @@ void addscore(int playerindex, int add)
         return;    //dont score if <0, e.g., npc damage enemy, enemy damage enemy
     }
 
-    playerindex &= 3;
+    assert(playerindex < MAX_PLAYERS);
 
     s = player[playerindex].score;
     cs = score_script + playerindex;
@@ -33325,7 +33688,7 @@ void spawnplayer(int index)
     //s_model * model = NULL;
     int wall;
     int xc, zc, find = 0;
-    index &= 3;
+	assert(index < MAX_PLAYERS);
 
 //    model = find_model(player[index].name);
 //    if(model == NULL) return;
@@ -38360,9 +38723,9 @@ void menu_options_input()
     int selector = 1; // 0
     int x_pos = -6;
     #if ANDROID
-    int OPTIONS_NUM = 6;
+    int OPTIONS_NUM = 8;
     #else
-    int OPTIONS_NUM = 5;
+    int OPTIONS_NUM = 7;
     #endif
 
     controloptionsMenu = 1;
@@ -38409,18 +38772,20 @@ void menu_options_input()
         _menutext((selector == 2), x_pos, 0, Tr("Setup Player 2..."));
         _menutext((selector == 3), x_pos, 1, Tr("Setup Player 3..."));
         _menutext((selector == 4), x_pos, 2, Tr("Setup Player 4..."));
+        _menutext((selector == 5), x_pos, 3, Tr("Setup Player 5..."));
+        _menutext((selector == 6), x_pos, 4, Tr("Setup Player 6..."));
         #if ANDROID
         if(savedata.is_touchpad_vibration_enabled)
         {
-            _menutextm((selector == 5), 4, 0, Tr("Touchpad Vibration Enabled"));
+            _menutextm((selector == 7), 5, 0, Tr("Touchpad Vibration Enabled"));
         }
         else
         {
-            _menutextm((selector == 5), 4, 0, Tr("Touchpad Vibration Disabled"));
+            _menutextm((selector == 7), 5, 0, Tr("Touchpad Vibration Disabled"));
         }
-        _menutextm((selector == 6), 6, 0, Tr("Back"));
+        _menutextm((selector == 8), 8, 0, Tr("Back"));
         #else
-        _menutextm((selector == 5), 5, 0, Tr("Back"));
+        _menutextm((selector == 7), 7, 0, Tr("Back"));
         #endif
 
         update((level != NULL), 0);
@@ -38478,8 +38843,14 @@ void menu_options_input()
             case 4:
                 keyboard_setup(3);
                 break;
-            #if ANDROID
             case 5:
+                keyboard_setup(4);
+                break;
+            case 6:
+                keyboard_setup(5);
+                break;
+            #if ANDROID
+            case 7:
                 savedata.is_touchpad_vibration_enabled ^= 1;
                 break;
             #endif
@@ -39711,7 +40082,7 @@ void openborMain(int argc, char **argv)
     u32 introtime = 0;
     int started = 0;
     char tmpBuff[MAX_BUFFER_LEN] = {""};
-    int players[MAX_PLAYERS] = {0, 0, 0, 0};
+    int players[MAX_PLAYERS] = {0, 0, 0, 0, 0, 0};
     int i;
     int argl;
 

@@ -106,6 +106,8 @@ movement restirctions are here!
 #define		MIRROR_Z			(PLAYER_MIN_Z-5)
 #define		PIT_DEPTH			-250
 #define		P2_STATS_DIST		180
+#define		P3P4_STATS_DIST		200
+#define		P5P6_STATS_DIST		40
 #define		CONTACT_DIST_H		30					// Distance to make contact
 #define		CONTACT_DIST_V		12
 #define		GRAB_DIST			36					// Grabbing ents will be placed this far apart.
