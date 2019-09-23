@@ -197,7 +197,7 @@ case $1 in
 5)
    if test -e "/usr/bin/i686-w64-mingw32-gcc"; then
      export WINDEV=/usr/bin
-     export SDKPATH=/usr/lib/gcc/i686-w64-mingw32
+     export SDKPATH=/usr/local/i686-w64-mingw32
      export PREFIX=i686-w64-mingw32-
      export PATH=$WINDEV:$PATH
      export CROSSCOMPILE_LINUX_WIN=1
