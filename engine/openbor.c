@@ -14383,7 +14383,7 @@ void load_levelorder()
     if(!pmpUsed[3])
     {
         pmp[3][0] = pmp[1][0];
-        pmp[3][1] = pmp[1][1] + (pmp[1][1] - 18);
+        pmp[3][1] = pmp[3][1] + (pmp[1][1] - 18);
     }
     if(!pmpUsed[4])
     {
