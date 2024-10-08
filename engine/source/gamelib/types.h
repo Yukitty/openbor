@@ -9,6 +9,8 @@
 #ifndef GAMELIB_TYPES_H
 #define GAMELIB_TYPES_H
 
+#define     MAX_PLAYERS         8
+
 #ifndef TRANSPARENT_IDX
 #define		TRANSPARENT_IDX		0x00
 #endif
@@ -249,7 +251,7 @@ typedef enum e_drawmethod_config
 	DRAWMETHOD_CONFIG_FLIP_ROTATE               = (1 << 3),
 	DRAWMETHOD_CONFIG_FLIP_X                    = (1 << 4),
 	DRAWMETHOD_CONFIG_FLIP_Y                    = (1 << 5)
-	
+
 } e_drawmethod_config;
 
 typedef struct
@@ -280,7 +282,7 @@ typedef struct
 	unsigned int fillcolor;		// ~~
 	e_drawmethod_config config;
 		//int flag;				// When 0, the global plainmethod is used. ~~
-	int alpha;				// ~~				
+	int alpha;				// ~~
 	int remap;				// ~~
 		//int flipx;				// ~~
 		//int flipy;				// ~~
@@ -305,7 +307,7 @@ typedef struct
 	int clipy;				// ~~
 	int clipw;				// ~~
 	int cliph;				// ~~
-	water_transform water;	
+	water_transform water;
 	int tag;				// ~~
 	e_object_type object_type;
 } s_drawmethod;
@@ -339,7 +341,7 @@ typedef struct
 	short hShift;	     // Offset for X-Axis Text
 	short vShift;	     // Offset for Y-Axis Text
 	short dOffset;	 // Offset for Debug Text
-	short shiftpos[4];
+	short shiftpos[MAX_PLAYERS];
 	char filter;
 	char mode;
 	char pixel;
