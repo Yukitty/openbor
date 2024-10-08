@@ -33,79 +33,79 @@
 
 typedef enum e_sound_file_type
 {
-    SOUND_FILE_TYPE_NONE = -1,
-    SOUND_FILE_TYPE_ADPCM = 0,
-    SOUND_FILE_TYPE_VORBIS = 1
+	SOUND_FILE_TYPE_NONE = -1,
+	SOUND_FILE_TYPE_ADPCM = 0,
+	SOUND_FILE_TYPE_VORBIS = 1
 } e_sound_file_type;
 
 typedef enum e_channel_type
 {
-    CHANNEL_TYPE_MONO = 1,
-    CHANNEL_TYPE_STEREO = 2
+	CHANNEL_TYPE_MONO = 1,
+	CHANNEL_TYPE_STEREO = 2
 } e_channel_type;
 
 typedef enum e_sound_spatial_channel
 {
-    SOUND_SPATIAL_CHANNEL_LEFT  = 0,
-    SOUND_SPATIAL_CHANNEL_RIGHT = 1,
-    SOUND_SPATIAL_CHANNEL_MAX   = 2
+	SOUND_SPATIAL_CHANNEL_LEFT  = 0,
+	SOUND_SPATIAL_CHANNEL_RIGHT = 1,
+	SOUND_SPATIAL_CHANNEL_MAX   = 2
 } e_channel_index;
 
 typedef struct s_sound_parameters {
-    unsigned int sound_length_max; // MAX_SOUND_LEN; Maximum sound length in samples
-    const unsigned int music_buffers_count; // MUSIC_NUM_BUFFERS
-    const unsigned int music_buffer_size;    // MUSIC_BUF_SIZE - In samples
+	unsigned int sound_length_max; // MAX_SOUND_LEN; Maximum sound length in samples
+	const unsigned int music_buffers_count; // MUSIC_NUM_BUFFERS
+	const unsigned int music_buffer_size;    // MUSIC_BUF_SIZE - In samples
 } s_sound_parameters;
 
 typedef struct
 {
-    int            active;		 // 1 = play, 2 = loop
-    int				paused;
-    int            samplenum;	 // Index of sound playing
-    unsigned int   priority;	 // Used for SFX
-    int				playid;
-    int            volume[SOUND_SPATIAL_CHANNEL_MAX];	 // Stereo :)
-    int            channels;
-    unsigned int   fp_samplepos; // Position (fixed-point)
-    unsigned int   fp_period;	 // Period (fixed-point)
+	int            active;		 // 1 = play, 2 = loop
+	int				paused;
+	int            samplenum;	 // Index of sound playing
+	unsigned int   priority;	 // Used for SFX
+	int				playid;
+	int            volume[SOUND_SPATIAL_CHANNEL_MAX];	 // Stereo :)
+	int            channels;
+	unsigned int   fp_samplepos; // Position (fixed-point)
+	unsigned int   fp_period;	 // Period (fixed-point)
 } channelstruct;
 
 typedef struct
 {
-    void* sampleptr;
-    int			   soundlen;	 // Length in samples
-    int            bits;		 // 8/16 bit
-    int            frequency;    // 11025 * 1,2,4
-    int            channels;
+	void* sampleptr;
+	int			   soundlen;	 // Length in samples
+	int            bits;		 // 8/16 bit
+	int            frequency;    // 11025 * 1,2,4
+	int            channels;
 } samplestruct;
 
 typedef struct
 {
-    samplestruct  sample;
-    int index;
-    char* filename;
+	samplestruct  sample;
+	int index;
+	char* filename;
 } s_soundcache;
 
 typedef struct
 {
-    int            active;
-    int            paused;
-    short 		   *buf[MUSIC_NUM_BUFFERS];
-    unsigned int   fp_playto[MUSIC_NUM_BUFFERS];
-    unsigned int   fp_samplepos;  // Position (fixed-point)
-    unsigned int   fp_period;	  // Period (fixed-point)
-    int			   playing_buffer;
-    int            volume[SOUND_SPATIAL_CHANNEL_MAX];
-    e_channel_type channels;
-    e_object_type  object_type;
+	int            active;
+	int            paused;
+	short 		   *buf[MUSIC_NUM_BUFFERS];
+	unsigned int   fp_playto[MUSIC_NUM_BUFFERS];
+	unsigned int   fp_samplepos;  // Position (fixed-point)
+	unsigned int   fp_period;	  // Period (fixed-point)
+	int			   playing_buffer;
+	int            volume[SOUND_SPATIAL_CHANNEL_MAX];
+	e_channel_type channels;
+	e_object_type  object_type;
 } musicchannelstruct;
 
 typedef struct s_audio_global
 {
-    List samplelist;
-    s_soundcache* soundcache;
-    int sound_cached;
-    unsigned int sample_play_id;
+	List samplelist;
+	s_soundcache* soundcache;
+	int sound_cached;
+	unsigned int sample_play_id;
 } s_audio_global;
 
 extern musicchannelstruct musicchannel;

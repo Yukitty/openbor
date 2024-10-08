@@ -136,7 +136,7 @@ int SetVideoMode(int w, int h, int bpp, bool gl)
 			printf("Error: failed to create window: %s\n", SDL_GetError());
 			return 0;
 		}
-		
+
 		// Kratus (11-2022) Disabled the native OpenBOR icon
 		// SDL_Surface* icon = (SDL_Surface*)pngToSurface((void*)openbor_icon_32x32_png.data);
 		// SDL_SetWindowIcon(window, icon);
@@ -226,19 +226,19 @@ void blit()
 
 void FramerateDelay()
 {
-    static u64 last_time = 0;
+	static u64 last_time = 0;
 
-    if (savedata.fpslimit < 2 || savedata.fpslimit > 3) return;
-    int fps_limit = savedata.fpslimit == 3 ? 500 : 200;
+	if (savedata.fpslimit < 2 || savedata.fpslimit > 3) return;
+	int fps_limit = savedata.fpslimit == 3 ? 500 : 200;
 
-    u64 target_time = last_time + 1000000/fps_limit;
-    u64 current_time = timer_uticks();
-    while (current_time < target_time)
-    {
-        usleep(target_time - current_time);
-        current_time = timer_uticks();
-    }
-    last_time = current_time;
+	u64 target_time = last_time + 1000000/fps_limit;
+	u64 current_time = timer_uticks();
+	while (current_time < target_time)
+	{
+		usleep(target_time - current_time);
+		current_time = timer_uticks();
+	}
+	last_time = current_time;
 }
 
 int video_copy_screen(s_screen* src)
@@ -319,10 +319,10 @@ int video_display_yuv_frame(void)
 
 int video_current_refresh_rate()
 {
-    SDL_DisplayMode display_mode;
-    if (SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(window), &display_mode) != 0)
-        return 60;
-    return display_mode.refresh_rate;
+	SDL_DisplayMode display_mode;
+	if (SDL_GetCurrentDisplayMode(SDL_GetWindowDisplayIndex(window), &display_mode) != 0)
+		return 60;
+	return display_mode.refresh_rate;
 }
 
 void vga_vwait(void)

@@ -18,148 +18,148 @@
 */ 
 HRESULT openbor_get_status_dial_property(ScriptVariant **varlist , ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME       "openbor_get_status_dial_property(void icon, int property)"
-    #define ARG_MINIMUM     2   // Minimum required arguments.
-    #define ARG_OBJECT      0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY    1   // Property to access.
+	#define SELF_NAME       "openbor_get_status_dial_property(void icon, int property)"
+	#define ARG_MINIMUM     2   // Minimum required arguments.
+	#define ARG_OBJECT      0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY    1   // Property to access.
 
-    s_barstatus*               handle     = NULL; // Property handle.
-    e_status_dial_properties  property    = 0;    // Property argument.
+	s_barstatus*               handle     = NULL; // Property handle.
+	e_status_dial_properties  property    = 0;    // Property argument.
 
-    // Clear pass by reference argument used to send
-    // property data back to calling script.
-    ScriptVariant_Clear(*pretvar);
+	// Clear pass by reference argument used to send
+	// property data back to calling script.
+	ScriptVariant_Clear(*pretvar);
 
-    // Verify arguments. There should at least
-    // be a pointer for the property handle and an integer
-    // to determine which property constant is accessed.
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
-    else
-    {
-        // Populate local vars for readability.
-        handle      = (s_barstatus *)varlist[ARG_OBJECT]->ptrVal;
-        property    = (LONG)varlist[ARG_PROPERTY]->lVal;
-    }
+	// Verify arguments. There should at least
+	// be a pointer for the property handle and an integer
+	// to determine which property constant is accessed.
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
+	else
+	{
+		// Populate local vars for readability.
+		handle      = (s_barstatus *)varlist[ARG_OBJECT]->ptrVal;
+		property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	}
 	
-    if (!handle)
-    {
-        printf("Missing pointer.\n");
-        goto error_local;
-    }
+	if (!handle)
+	{
+		printf("Missing pointer.\n");
+		goto error_local;
+	}
 
-    switch(property)
-    {
-        case STATUS_DIAL_PROPERTY_BACK_LAYER:
+	switch(property)
+	{
+		case STATUS_DIAL_PROPERTY_BACK_LAYER:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->backlayer;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->backlayer;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_BORDER_LAYER:
+		case STATUS_DIAL_PROPERTY_BORDER_LAYER:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->borderlayer;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->borderlayer;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_COLORSET_TABLE:
+		case STATUS_DIAL_PROPERTY_COLORSET_TABLE:
 
-            ScriptVariant_ChangeType(*pretvar, VT_PTR);
-            (*pretvar)->ptrVal = (int*)&handle->colourtable;
+			ScriptVariant_ChangeType(*pretvar, VT_PTR);
+			(*pretvar)->ptrVal = (int*)&handle->colourtable;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_CONFIG_FLAGS:
+		case STATUS_DIAL_PROPERTY_CONFIG_FLAGS:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (e_status_config)handle->config_flags;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (e_status_config)handle->config_flags;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_LAYER:
+		case STATUS_DIAL_PROPERTY_GRAPH_LAYER:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->barlayer;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->barlayer;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_POSITION_X:
+		case STATUS_DIAL_PROPERTY_GRAPH_POSITION_X:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->graph_position.x;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->graph_position.x;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_POSITION_Y:
+		case STATUS_DIAL_PROPERTY_GRAPH_POSITION_Y:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->graph_position.y;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->graph_position.y;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_SIZE_X:
+		case STATUS_DIAL_PROPERTY_GRAPH_SIZE_X:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->size.x;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->size.x;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_SIZE_Y:
+		case STATUS_DIAL_PROPERTY_GRAPH_SIZE_Y:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->size.y;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->size.y;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_NAME_POSITION_X:
+		case STATUS_DIAL_PROPERTY_NAME_POSITION_X:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->name_position.x;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->name_position.x;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_NAME_POSITION_Y:
+		case STATUS_DIAL_PROPERTY_NAME_POSITION_Y:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->name_position.y;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->name_position.y;
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_SHADOW_LAYER:
+		case STATUS_DIAL_PROPERTY_SHADOW_LAYER:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle->shadowlayer;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle->shadowlayer;
 
-            break;
+			break;
 
-        default:
+		default:
 
-            printf("Unknwon property.\n");
-            goto error_local;
+			printf("Unknwon property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return S_OK;
+	return S_OK;
 
-    error_local:
+	error_local:
 
-    printf("You must provide a valid pointer and property constant: " SELF_NAME "\n");
-    *pretvar = NULL;
+	printf("You must provide a valid pointer and property constant: " SELF_NAME "\n");
+	*pretvar = NULL;
 
-    return E_FAIL;
+	return E_FAIL;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_INDEX
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_INDEX
 }
 
 /*
@@ -172,170 +172,170 @@ HRESULT openbor_get_status_dial_property(ScriptVariant **varlist , ScriptVariant
 */ 
 HRESULT openbor_set_status_dial_property(ScriptVariant **varlist, ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME           "openbor_set_status_dial_property(void icon, int property, value)"
-    #define ARG_MINIMUM         3   // Minimum required arguments.
-    #define ARG_OBJECT          0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY        1   // Property to access.
-    #define ARG_VALUE           2   // New value to apply.
+	#define SELF_NAME           "openbor_set_status_dial_property(void icon, int property, value)"
+	#define ARG_MINIMUM         3   // Minimum required arguments.
+	#define ARG_OBJECT          0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY        1   // Property to access.
+	#define ARG_VALUE           2   // New value to apply.
 
-    int                 result      = S_OK; // Success or error?
-    s_barstatus*             handle     = NULL; // Property handle.
-    e_status_dial_properties	property    = 0;    // Property to access.
+	int                 result      = S_OK; // Success or error?
+	s_barstatus*             handle     = NULL; // Property handle.
+	e_status_dial_properties	property    = 0;    // Property to access.
 
-    // Value carriers to apply on properties after
-    // taken from argument.
-    LONG    temp_int;
+	// Value carriers to apply on properties after
+	// taken from argument.
+	LONG    temp_int;
 		
-    // Verify incoming arguments. There should at least
-    // be a pointer for the property handle and an integer
-    // to determine which property is accessed.
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
+	// Verify incoming arguments. There should at least
+	// be a pointer for the property handle and an integer
+	// to determine which property is accessed.
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 
-    // Populate local handle and property vars.
-    handle      = (s_barstatus*)varlist[ARG_OBJECT]->ptrVal;
-    property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	// Populate local handle and property vars.
+	handle      = (s_barstatus*)varlist[ARG_OBJECT]->ptrVal;
+	property    = (LONG)varlist[ARG_PROPERTY]->lVal;
 
-    if (!handle)
-    {
-        printf("Missing pointer.\n");
-        goto error_local;
-    }
+	if (!handle)
+	{
+		printf("Missing pointer.\n");
+		goto error_local;
+	}
 
-    // Which property to modify?
-    switch(property)
-    {
-        case STATUS_DIAL_PROPERTY_BACK_LAYER:
+	// Which property to modify?
+	switch(property)
+	{
+		case STATUS_DIAL_PROPERTY_BACK_LAYER:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->backlayer = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->backlayer = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_BORDER_LAYER:
+		case STATUS_DIAL_PROPERTY_BORDER_LAYER:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->borderlayer = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->borderlayer = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_COLORSET_TABLE:
+		case STATUS_DIAL_PROPERTY_COLORSET_TABLE:
 
-            printf("\n\n Warning: Status Popup Colorset Table is a read only pointer. Use the appropriate sub property function to modify values. \n");
+			printf("\n\n Warning: Status Popup Colorset Table is a read only pointer. Use the appropriate sub property function to modify values. \n");
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_CONFIG_FLAGS:
+		case STATUS_DIAL_PROPERTY_CONFIG_FLAGS:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->config_flags = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->config_flags = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_LAYER:
+		case STATUS_DIAL_PROPERTY_GRAPH_LAYER:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->barlayer = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->barlayer = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_POSITION_X:
+		case STATUS_DIAL_PROPERTY_GRAPH_POSITION_X:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->graph_position.x = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->graph_position.x = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_POSITION_Y:
+		case STATUS_DIAL_PROPERTY_GRAPH_POSITION_Y:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->graph_position.y = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->graph_position.y = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_SIZE_X:
+		case STATUS_DIAL_PROPERTY_GRAPH_SIZE_X:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->size.x = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->size.x = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_GRAPH_SIZE_Y:
+		case STATUS_DIAL_PROPERTY_GRAPH_SIZE_Y:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->size.y = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->size.y = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_NAME_POSITION_X:
+		case STATUS_DIAL_PROPERTY_NAME_POSITION_X:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->name_position.x = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->name_position.x = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_NAME_POSITION_Y:
+		case STATUS_DIAL_PROPERTY_NAME_POSITION_Y:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->name_position.y = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->name_position.y = temp_int;
+			}
 
-            break;
+			break;
 
-        case STATUS_DIAL_PROPERTY_SHADOW_LAYER:
+		case STATUS_DIAL_PROPERTY_SHADOW_LAYER:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle->shadowlayer = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle->shadowlayer = temp_int;
+			}
 
-            break;
+			break;
 
-        default:
+		default:
 
-            printf("Unsupported property.\n");
-            goto error_local;
+			printf("Unsupported property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return result;
+	return result;
 
-    // Error trapping.
-    error_local:
+	// Error trapping.
+	error_local:
 
-    printf("You must provide a valid pointer, property, and new value: " SELF_NAME "\n");
+	printf("You must provide a valid pointer, property, and new value: " SELF_NAME "\n");
 
-    result = E_FAIL;
-    return result;
+	result = E_FAIL;
+	return result;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_PROPERTY
-    #undef ARG_VALUE
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_PROPERTY
+	#undef ARG_VALUE
 }

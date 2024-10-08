@@ -86,12 +86,12 @@ typedef unsigned long long u64;
 #define screen_magic ((int)0x726373)
 
 typedef enum e_color_components {
-    COLOR_COMPONENT_RED    = 0,
-    COLOR_COMPONENT_GREEN  = 1,
-    COLOR_COMPONENT_BLUE   = 2,
-    COLOR_COMPONENT_ALPHA  = 3,
-    COLOR_COMPONENT_RGB    = 3,
-    COLOR_COMPONENT_END    = 4
+	COLOR_COMPONENT_RED    = 0,
+	COLOR_COMPONENT_GREEN  = 1,
+	COLOR_COMPONENT_BLUE   = 2,
+	COLOR_COMPONENT_ALPHA  = 3,
+	COLOR_COMPONENT_RGB    = 3,
+	COLOR_COMPONENT_END    = 4
 } e_color_components;
 
 /*
@@ -109,34 +109,34 @@ typedef enum e_color_components {
 * from this list on allocation.
 */
 typedef enum e_object_type {
-    OBJECT_TYPE_NONE,
-    OBJECT_TYPE_BIND,
-    OBJECT_TYPE_DRAWMETHOD,
-    OBJECT_TYPE_ENTITY,
-    OBJECT_TYPE_FLASH,
-    OBJECT_TYPE_GLOBAL_CONFIG,
-    OBJECT_TYPE_MODEL,
-    OBJECT_TYPE_MUSIC_CHANNEL
+	OBJECT_TYPE_NONE,
+	OBJECT_TYPE_BIND,
+	OBJECT_TYPE_DRAWMETHOD,
+	OBJECT_TYPE_ENTITY,
+	OBJECT_TYPE_FLASH,
+	OBJECT_TYPE_GLOBAL_CONFIG,
+	OBJECT_TYPE_MODEL,
+	OBJECT_TYPE_MUSIC_CHANNEL
 } e_object_type;
 
 typedef struct
 {
-    int magic;
-    int	width;
-    int	height;
-    int pixelformat;
-    unsigned char *palette;
-    unsigned char data[ANYNUMBER];
+	int magic;
+	int	width;
+	int	height;
+	int pixelformat;
+	unsigned char *palette;
+	unsigned char data[ANYNUMBER];
 } s_screen;
 
 
 typedef struct
 {
-    int	width;
-    int	height;
-    int	planar;
-    int	banked;		// Still unused
-    unsigned char 	*data;
+	int	width;
+	int	height;
+	int	planar;
+	int	banked;		// Still unused
+	unsigned char 	*data;
 } s_vram;
 
 
@@ -145,16 +145,16 @@ typedef struct
 
 typedef struct
 {
-    int magic;
-    int	width;
-    int	height;
-    int pixelformat;
-    int clipped_x_offset;
-    int clipped_y_offset;
-    int clipped_width;
-    int clipped_height;
-    unsigned char *palette;
-    unsigned char data[ANYNUMBER];
+	int magic;
+	int	width;
+	int	height;
+	int pixelformat;
+	int clipped_x_offset;
+	int clipped_y_offset;
+	int clipped_width;
+	int clipped_height;
+	unsigned char *palette;
+	unsigned char data[ANYNUMBER];
 } s_bitmap;
 
 //spr
@@ -162,35 +162,35 @@ typedef struct
 
 typedef struct spritestruct
 {
-    int magic;
-    int	centerx;
-    int	centery;
-    int offsetx;
-    int offsety;
-    int srcwidth;
-    int srcheight;
-    int	width;
-    int	height;
-    int pixelformat;
-    struct spritestruct *mask;
-    unsigned char *palette;
-    int data[ANYNUMBER];
+	int magic;
+	int	centerx;
+	int	centery;
+	int offsetx;
+	int offsety;
+	int srcwidth;
+	int srcheight;
+	int	width;
+	int	height;
+	int pixelformat;
+	struct spritestruct *mask;
+	unsigned char *palette;
+	int data[ANYNUMBER];
 } s_sprite;
 
 struct sprite_list
 {
-    char *filename;
-    s_sprite *sprite;
-    int ref;
-    struct sprite_list *next;
+	char *filename;
+	s_sprite *sprite;
+	int ref;
+	struct sprite_list *next;
 };
 typedef struct sprite_list s_sprite_list;
 
 typedef struct
 {
-    s_sprite_list *node;
-    int  centerx;
-    int  centery;
+	s_sprite_list *node;
+	int  centerx;
+	int  centery;
 } s_sprite_map;
 
 void set_blendtables(unsigned char *tables[]); // set global blend tables for 8bit mode
@@ -243,108 +243,108 @@ typedef enum
 
 typedef enum e_drawmethod_config
 {
-    DRAWMETHOD_CONFIG_NONE                      = 0,
-    DRAWMETHOD_CONFIG_BACKGROUND_TRANSPARENCY   = (1 << 1),
-    DRAWMETHOD_CONFIG_ENABLED                   = (1 << 2),
-    DRAWMETHOD_CONFIG_FLIP_ROTATE               = (1 << 3),
-    DRAWMETHOD_CONFIG_FLIP_X                    = (1 << 4),
-    DRAWMETHOD_CONFIG_FLIP_Y                    = (1 << 5)
-    
+	DRAWMETHOD_CONFIG_NONE                      = 0,
+	DRAWMETHOD_CONFIG_BACKGROUND_TRANSPARENCY   = (1 << 1),
+	DRAWMETHOD_CONFIG_ENABLED                   = (1 << 2),
+	DRAWMETHOD_CONFIG_FLIP_ROTATE               = (1 << 3),
+	DRAWMETHOD_CONFIG_FLIP_X                    = (1 << 4),
+	DRAWMETHOD_CONFIG_FLIP_Y                    = (1 << 5)
+	
 } e_drawmethod_config;
 
 typedef struct
 {
-    union
-    {
-        int amplitude;
-        float beginsize;
-    };
-    union
-    {
-        float wavelength;
-        float endsize;
-    };
-    int wavetime;
-    union
-    {
-        float wavespeed;
+	union
+	{
+		int amplitude;
+		float beginsize;
+	};
+	union
+	{
+		float wavelength;
+		float endsize;
+	};
+	int wavetime;
+	union
+	{
+		float wavespeed;
 		e_water_perspective	perspective;
-    };
-    e_water_mode watermode;
+	};
+	e_water_mode watermode;
 } water_transform;
 
 typedef struct
 {
-    unsigned char *table;	// ~~
-    //void *fp;
-    unsigned int fillcolor;		// ~~
-    e_drawmethod_config config;
-        //int flag;				// When 0, the global plainmethod is used. ~~
-    int alpha;				// ~~				
-    int remap;				// ~~
-        //int flipx;				// ~~
-        //int flipy;				// ~~
-        //int transbg;			// ~~
-        //int fliprotate;			// entity only, whether the flip is affected by the entity's facing(not the sprite's flip ) ~~
-    float rotate;			// 360 degrees ~~
-    int scalex;				// ~~
-    int scaley;				// ~~
-    int shiftx;				// ~~
-    int centerx;			// shift centerx ~~
-    int centery;			// shift centery ~~
-    int xrepeat;			// ~~
-    int yrepeat;			// ~~
-    int xspan;				// ~~
-    int yspan;				// ~~
-    unsigned char channelr;	// ~~
-    unsigned char channelg; // ~~
-    unsigned char channelb;	// ~~
-    unsigned tintmode;		// tint the sprite with color ~~
-    unsigned tintcolor;		// ~~
-    int clipx;				// ~~
-    int clipy;				// ~~
-    int clipw;				// ~~
-    int cliph;				// ~~
-    water_transform water;	
+	unsigned char *table;	// ~~
+	//void *fp;
+	unsigned int fillcolor;		// ~~
+	e_drawmethod_config config;
+		//int flag;				// When 0, the global plainmethod is used. ~~
+	int alpha;				// ~~				
+	int remap;				// ~~
+		//int flipx;				// ~~
+		//int flipy;				// ~~
+		//int transbg;			// ~~
+		//int fliprotate;			// entity only, whether the flip is affected by the entity's facing(not the sprite's flip ) ~~
+	float rotate;			// 360 degrees ~~
+	int scalex;				// ~~
+	int scaley;				// ~~
+	int shiftx;				// ~~
+	int centerx;			// shift centerx ~~
+	int centery;			// shift centery ~~
+	int xrepeat;			// ~~
+	int yrepeat;			// ~~
+	int xspan;				// ~~
+	int yspan;				// ~~
+	unsigned char channelr;	// ~~
+	unsigned char channelg; // ~~
+	unsigned char channelb;	// ~~
+	unsigned tintmode;		// tint the sprite with color ~~
+	unsigned tintcolor;		// ~~
+	int clipx;				// ~~
+	int clipy;				// ~~
+	int clipw;				// ~~
+	int cliph;				// ~~
+	water_transform water;	
 	int tag;				// ~~
-    e_object_type object_type;
+	e_object_type object_type;
 } s_drawmethod;
 extern const s_drawmethod plainmethod;
 void drawmethod_global_init(s_drawmethod *drawmethod);
 
 typedef enum
 {
-    gfx_screen,
-    gfx_bitmap,
-    gfx_sprite
+	gfx_screen,
+	gfx_bitmap,
+	gfx_sprite
 } gfx_type;
 
 
 typedef struct
 {
-    union
-    {
-        s_screen *screen;
-        s_sprite *sprite;
-        s_bitmap *bitmap;
-        void      *handle;
-    };
+	union
+	{
+		s_screen *screen;
+		s_sprite *sprite;
+		s_bitmap *bitmap;
+		void      *handle;
+	};
 } gfx_entry;
 
 
 typedef struct
 {
-    short hRes;        // Horizontal Resolution
-    short vRes;		 // Vertical Resolution
-    short hShift;	     // Offset for X-Axis Text
-    short vShift;	     // Offset for Y-Axis Text
-    short dOffset;	 // Offset for Debug Text
-    short shiftpos[4];
-    char filter;
-    char mode;
-    char pixel;
-    float hScale;    // Multiplier for X-Axis
-    float vScale;    // Multiplier for Y-Axis
+	short hRes;        // Horizontal Resolution
+	short vRes;		 // Vertical Resolution
+	short hShift;	     // Offset for X-Axis Text
+	short vShift;	     // Offset for Y-Axis Text
+	short dOffset;	 // Offset for Debug Text
+	short shiftpos[4];
+	char filter;
+	char mode;
+	char pixel;
+	float hScale;    // Multiplier for X-Axis
+	float vScale;    // Multiplier for Y-Axis
 
 } s_videomodes;
 

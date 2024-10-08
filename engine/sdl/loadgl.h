@@ -56,4 +56,3 @@ void APIENTRY glMultiTexCoord2f(GLenum texture, GLfloat s, GLfloat t);
 #endif // LOADGL
 
 #endif // !defined(LOADGL_H)
-

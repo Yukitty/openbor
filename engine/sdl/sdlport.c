@@ -36,10 +36,10 @@ char screenShotsDir[MAX_FILENAME_LEN] = {"ScreenShots"};
 #if _POSIX_C_SOURCE >= 199309L
 void _usleep(u32 usec)
 {
-    struct timespec sleeptime;
-    sleeptime.tv_sec = usec / 1000000LL;
-    sleeptime.tv_nsec = (usec % 1000000LL) * 1000;
-    nanosleep(&sleeptime, NULL);
+	struct timespec sleeptime;
+	sleeptime.tv_sec = usec / 1000000LL;
+	sleeptime.tv_nsec = (usec % 1000000LL) * 1000;
+	nanosleep(&sleeptime, NULL);
 }
 #endif
 
@@ -57,7 +57,7 @@ void borExit(int reset)
 {
 	SDL_Delay(1000);
 	SDL_Quit(); // call this instead of atexit(SDL_Quit); It's best practice!
-    exit(reset);
+	exit(reset);
 }
 
 int main(int argc, char *argv[])
@@ -100,29 +100,29 @@ int main(int argc, char *argv[])
 	packfile_mode(0);
 
 #ifdef ANDROID
-    if(strstr(SDL_AndroidGetExternalStoragePath(), "org.openbor.engine"))
-    {
-        strcpy(rootDir, "/mnt/sdcard/OpenBOR/");
-        strcpy(paksDir, "/mnt/sdcard/OpenBOR/Paks");
-        strcpy(savesDir, "/mnt/sdcard/OpenBOR/Saves");
-        strcpy(logsDir, "/mnt/sdcard/OpenBOR/Logs");
-        strcpy(screenShotsDir, "/mnt/sdcard/OpenBOR/ScreenShots");
-    }
-    else
-    {
-        strcpy(rootDir, SDL_AndroidGetExternalStoragePath());
-        strcat(rootDir, "/");
-        strcpy(paksDir, SDL_AndroidGetExternalStoragePath());
-        strcat(paksDir, "/Paks");
-        strcpy(savesDir, SDL_AndroidGetExternalStoragePath());
-        strcat(savesDir, "/Saves");
-        strcpy(logsDir, SDL_AndroidGetExternalStoragePath());
-        strcat(logsDir, "/Logs");
-        strcpy(screenShotsDir, SDL_AndroidGetExternalStoragePath());
-        strcat(screenShotsDir, "/ScreenShots");
-    }
+	if(strstr(SDL_AndroidGetExternalStoragePath(), "org.openbor.engine"))
+	{
+		strcpy(rootDir, "/mnt/sdcard/OpenBOR/");
+		strcpy(paksDir, "/mnt/sdcard/OpenBOR/Paks");
+		strcpy(savesDir, "/mnt/sdcard/OpenBOR/Saves");
+		strcpy(logsDir, "/mnt/sdcard/OpenBOR/Logs");
+		strcpy(screenShotsDir, "/mnt/sdcard/OpenBOR/ScreenShots");
+	}
+	else
+	{
+		strcpy(rootDir, SDL_AndroidGetExternalStoragePath());
+		strcat(rootDir, "/");
+		strcpy(paksDir, SDL_AndroidGetExternalStoragePath());
+		strcat(paksDir, "/Paks");
+		strcpy(savesDir, SDL_AndroidGetExternalStoragePath());
+		strcat(savesDir, "/Saves");
+		strcpy(logsDir, SDL_AndroidGetExternalStoragePath());
+		strcat(logsDir, "/Logs");
+		strcpy(screenShotsDir, SDL_AndroidGetExternalStoragePath());
+		strcat(screenShotsDir, "/ScreenShots");
+	}
 	dirExists(rootDir, 1);
-    chdir(rootDir);
+	chdir(rootDir);
 #endif
 
 	dirExists(paksDir, 1);
@@ -133,14 +133,14 @@ int main(int argc, char *argv[])
    // Test command line argument to launch MOD
    int romArg = 0;
    if(argc == 2) {
-      memcpy(packfile, argv[1], strlen(argv[1]));
-      if(fileExists(packfile)) {
-         romArg = 1;
-      }
+	  memcpy(packfile, argv[1], strlen(argv[1]));
+	  if(fileExists(packfile)) {
+		 romArg = 1;
+	  }
    }
 
    if(!romArg) {
-       Menu();
+	   Menu();
    }
 
 #ifndef SKIP_CODE
@@ -151,4 +151,3 @@ int main(int argc, char *argv[])
 	borExit(0);
 	return 0;
 }
-

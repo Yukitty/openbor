@@ -45,7 +45,7 @@ void borExit(int reset)
 	else if(reset == WII_RESET) SYS_ResetSystem(SYS_HOTRESET, 0, 0);
 	else exit(reset);
 #else
-    exit(reset); //SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
+	exit(reset); //SYS_ResetSystem(SYS_RETURNTOMENU, 0, 0);
 #endif
 }
 
@@ -70,7 +70,7 @@ int main(int argc, char * argv[])
 	// reload to IOS58 for USB2 support
 	if (IOS_GetVersion() != 58)
 	{       
-        IOS_ReloadIOS(58);
+		IOS_ReloadIOS(58);
 	}
 
 	// use libfat for FAT filesystem access

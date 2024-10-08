@@ -13,7 +13,7 @@ s_joysticks joysticks[JOY_LIST_TOTAL];
 
 const char *JoystickKeyName[JOY_NAME_SIZE] = {
 	"...",
-    #define JOYSTICK_NAMES(x) \
+	#define JOYSTICK_NAMES(x) \
 	x" Up",             \
 	x" Right",          \
 	x" Down",           \
@@ -286,11 +286,11 @@ const char* JoystickButtonNames[JOY_NAME_SIZE] = {
 	x" Button 57",       \
 	x" Button 58",       \
 	x" Button 59",       \
-    x" Button 60",       \
-    x" Button 61",       \
-    x" Button 62",       \
-    x" Button 63",       \
-    x" Button 64",
+	x" Button 60",       \
+	x" Button 61",       \
+	x" Button 62",       \
+	x" Button 63",       \
+	x" Button 64",
 	BUTTON_NAMES("P1")
 	BUTTON_NAMES("P2")
 	BUTTON_NAMES("P3")
@@ -300,8 +300,8 @@ const char* JoystickButtonNames[JOY_NAME_SIZE] = {
 const char* JoystickAxisNames[JOY_NAME_SIZE] = {
 	"...",
 #define AXIS_BUTTONS(x,n) \
-    x" Axis "n" -",       \
-    x" Axis "n" +",
+	x" Axis "n" -",       \
+	x" Axis "n" +",
 #define AXIS_NAMES(x)     \
 	AXIS_BUTTONS(x,"1")   \
 	AXIS_BUTTONS(x,"2")   \
@@ -433,11 +433,11 @@ const char* JoystickUnknownNames[JOY_NAME_SIZE] = {
 	x" unknown 57",       \
 	x" unknown 58",       \
 	x" unknown 59",       \
-    x" unknown 60",       \
-    x" unknown 61",       \
-    x" unknown 62",       \
-    x" unknown 63",       \
-    x" unknown 64",
+	x" unknown 60",       \
+	x" unknown 61",       \
+	x" unknown 62",       \
+	x" unknown 63",       \
+	x" unknown 64",
 	UNKNOWN_NAMES("P1")
 	UNKNOWN_NAMES("P2")
 	UNKNOWN_NAMES("P3")

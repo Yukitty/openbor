@@ -189,7 +189,7 @@ int video_set_mode(s_videomodes videomodes)
 	// free existing memory
 	if(texturemem[0]) { free(texturemem[0]); texturemem[0]=NULL; }
 	if(texturemem[1]) { free(texturemem[1]); texturemem[1]=NULL; }
-    if(yuvScreen) { freescreen(&yuvScreen); yuvScreen=NULL; }
+	if(yuvScreen) { freescreen(&yuvScreen); yuvScreen=NULL; }
 
 	// allocate memory for new texture
 	textureWidth = videomodes.hRes;
@@ -414,13 +414,13 @@ int video_setup_yuv_overlay(const yuv_video_mode *mode)
 
 int video_prepare_yuv_frame(yuv_frame *src)
 {
-    yuv_to_rgb(src, yuvScreen);
-    return 1;
+	yuv_to_rgb(src, yuvScreen);
+	return 1;
 }
 
 int video_display_yuv_frame(void)
 {
-    return video_copy_screen(yuvScreen);
+	return video_copy_screen(yuvScreen);
 }
 
 /*

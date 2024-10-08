@@ -45,26 +45,26 @@
 //          1. Do nothing and allow function to continue.
 #define MAPSTRINGS(VAR, LIST, MAXINDEX, FAILMSG, args...) \
 {\
-    int proplist_cursor; \
-    if(VAR->vt == VT_STR) { \
-        propname = (char*)StrCache_Get(VAR->strVal); \
-        prop = searchList(LIST, propname, MAXINDEX); \
-        if(prop >= 0) { \
-            ScriptVariant_ChangeType(VAR, VT_INTEGER); \
-            VAR->lVal = prop; \
-        } else { \
-            \
-            printf(FAILMSG, propname, ##args);  \
-            printf("\n Available properties:\n"); \
-            \
-            for(proplist_cursor = 0; LIST[proplist_cursor] != NULL; proplist_cursor++){ \
-               printf("\n\t%s", LIST[proplist_cursor]); \
-            } \
-            \
-            printf("\n\n"); \
-            return 0; \
-        }\
-    }\
+	int proplist_cursor; \
+	if(VAR->vt == VT_STR) { \
+		propname = (char*)StrCache_Get(VAR->strVal); \
+		prop = searchList(LIST, propname, MAXINDEX); \
+		if(prop >= 0) { \
+			ScriptVariant_ChangeType(VAR, VT_INTEGER); \
+			VAR->lVal = prop; \
+		} else { \
+			\
+			printf(FAILMSG, propname, ##args);  \
+			printf("\n Available properties:\n"); \
+			\
+			for(proplist_cursor = 0; LIST[proplist_cursor] != NULL; proplist_cursor++){ \
+			   printf("\n\t%s", LIST[proplist_cursor]); \
+			} \
+			\
+			printf("\n\n"); \
+			return 0; \
+		}\
+	}\
 }
 
 extern int			  PLAYER_MIN_Z;
@@ -133,13 +133,13 @@ extern s_attack emptyattack;
 */
 typedef enum e_property_access_config_flags
 {
-    PROPERTY_ACCESS_CONFIG_NONE = 0,
-    PROPERTY_ACCESS_CONFIG_READ = (1 << 0),
-    PROPERTY_ACCESS_CONFIG_WRITE = (1 << 1),
-    PROPERTY_ACCESS_CONFIG_STATIC_LENGTH = (1 << 2),
-    PROPERTY_ACCESS_CONFIG_STATIC_POINTER = (1 << 3),
+	PROPERTY_ACCESS_CONFIG_NONE = 0,
+	PROPERTY_ACCESS_CONFIG_READ = (1 << 0),
+	PROPERTY_ACCESS_CONFIG_WRITE = (1 << 1),
+	PROPERTY_ACCESS_CONFIG_STATIC_LENGTH = (1 << 2),
+	PROPERTY_ACCESS_CONFIG_STATIC_POINTER = (1 << 3),
 
-    PROPERTY_ACCESS_CONFIG_MACRO_DEFAULT = (PROPERTY_ACCESS_CONFIG_READ | PROPERTY_ACCESS_CONFIG_WRITE)
+	PROPERTY_ACCESS_CONFIG_MACRO_DEFAULT = (PROPERTY_ACCESS_CONFIG_READ | PROPERTY_ACCESS_CONFIG_WRITE)
 }e_property_access_config_flags;
 
 /*
@@ -151,10 +151,10 @@ typedef enum e_property_access_config_flags
 * access fields and behaiors.
 */
 typedef struct s_property_access_map {
-    e_property_access_config_flags config_flags;    // Any special behaviors, ex.: Read only.
-    const char* id_string;                          // Text name of property we can output as debug info. Should always be same as the property index constant (ex. MODEL_PROPERTY_ACTION_FREEZE = "MODEL_PROPERTY_ACTION_FREEZE").
-    const void* field;                              // Structure member property routes to. Ex: &((s_model*)0)->dofreeze
-    VARTYPE type;                                   // Property data type (VT_INTEGER, VT_PTR, etc.).
+	e_property_access_config_flags config_flags;    // Any special behaviors, ex.: Read only.
+	const char* id_string;                          // Text name of property we can output as debug info. Should always be same as the property index constant (ex. MODEL_PROPERTY_ACTION_FREEZE = "MODEL_PROPERTY_ACTION_FREEZE").
+	const void* field;                              // Structure member property routes to. Ex: &((s_model*)0)->dofreeze
+	VARTYPE type;                                   // Property data type (VT_INTEGER, VT_PTR, etc.).
 } s_property_access_map;
 
 /*

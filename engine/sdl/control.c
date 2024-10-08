@@ -73,12 +73,12 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 						touch_info.py[i] = ev.tfinger.y*nativeHeight;
 						touch_info.pstatus[i] = TOUCH_STATUS_DOWN;
 
-            // migration for White Dragon's vibration logic from SDLActivity.java
-            if (is_touchpad_vibration_enabled() &&
-                is_touch_area(touch_info.px[i], touch_info.py[i]))
-            {
-              jniutils_vibrate_device();
-            }
+			// migration for White Dragon's vibration logic from SDLActivity.java
+			if (is_touchpad_vibration_enabled() &&
+				is_touch_area(touch_info.px[i], touch_info.py[i]))
+			{
+			  jniutils_vibrate_device();
+			}
 
 						break;
 					}
@@ -133,12 +133,12 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 							if(ev.jbutton.button >= 8 && ev.jbutton.button <= 18) joysticks[i].Buttons &= ~(JoystickBits[ev.jbutton.button - 3]);
 						}
 						/*else
-                        {
-                            // add key flag from event
-                            #ifdef ANDROID
-                            joysticks[i].Buttons &= 0x00 << ev.jbutton.button;
-                            #endif
-                        }*/
+						{
+							// add key flag from event
+							#ifdef ANDROID
+							joysticks[i].Buttons &= 0x00 << ev.jbutton.button;
+							#endif
+						}*/
 					}
 				}
 				break;
@@ -196,48 +196,48 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 
 						// add key flag from event
 						#ifdef ANDROID
-                        if(ev.jaxis.value < -1*T_AXIS)  { joysticks[i].Axes |= 0x01 << (ev.jaxis.axis*2); }
-                        if(ev.jaxis.value >    T_AXIS)  { joysticks[i].Axes |= 0x02 << (ev.jaxis.axis*2); }
-                        #endif
+						if(ev.jaxis.value < -1*T_AXIS)  { joysticks[i].Axes |= 0x01 << (ev.jaxis.axis*2); }
+						if(ev.jaxis.value >    T_AXIS)  { joysticks[i].Axes |= 0x02 << (ev.jaxis.axis*2); }
+						#endif
 					}
 				}
 				break;
 
-            // PLUG AND PLAY
-            case SDL_JOYDEVICEADDED:
-                if (ev.jdevice.which < JOY_LIST_TOTAL)
-                {
-                    int i = ev.jdevice.which;
-                    char buffer[MAX_BUFFER_LEN];
-                    char joy_name[MAX_BUFFER_LEN];
-                    open_joystick(i);
-                    //get_time_string(buffer, MAX_BUFFER_LEN, (time_t)ev.jdevice.timestamp, TIMESTAMP_PATTERN);
-                    get_now_string(buffer, MAX_BUFFER_LEN, TIMESTAMP_PATTERN);
-                    numjoy = SDL_NumJoysticks();
-                    strcpy(joy_name,get_joystick_name(joysticks[i].Name));
-                    printf("Joystick: \"%s\" connected at port: %d at %s\n",joy_name,i,buffer);
-                }
-                break;
+			// PLUG AND PLAY
+			case SDL_JOYDEVICEADDED:
+				if (ev.jdevice.which < JOY_LIST_TOTAL)
+				{
+					int i = ev.jdevice.which;
+					char buffer[MAX_BUFFER_LEN];
+					char joy_name[MAX_BUFFER_LEN];
+					open_joystick(i);
+					//get_time_string(buffer, MAX_BUFFER_LEN, (time_t)ev.jdevice.timestamp, TIMESTAMP_PATTERN);
+					get_now_string(buffer, MAX_BUFFER_LEN, TIMESTAMP_PATTERN);
+					numjoy = SDL_NumJoysticks();
+					strcpy(joy_name,get_joystick_name(joysticks[i].Name));
+					printf("Joystick: \"%s\" connected at port: %d at %s\n",joy_name,i,buffer);
+				}
+				break;
 
-            case SDL_JOYDEVICEREMOVED:
-                if (ev.jdevice.which < JOY_LIST_TOTAL)
-                {
-                    int i = ev.jdevice.which;
-                    if(joystick[i])
-                    {
-                        char buffer[MAX_BUFFER_LEN];
-                        char joy_name[MAX_BUFFER_LEN];
-                        get_now_string(buffer, MAX_BUFFER_LEN, TIMESTAMP_PATTERN);
-                        //close_joystick(i); //Kratus (20-04-21) disable the entire code to maintain joystick IDs
-                        numjoy = SDL_NumJoysticks();
-                        strcpy(joy_name,get_joystick_name(joysticks[i].Name));
-                        printf("Joystick: \"%s\" disconnected from port: %d at %s\n",joy_name,i,buffer);
-                    }
-                }
-                break;
+			case SDL_JOYDEVICEREMOVED:
+				if (ev.jdevice.which < JOY_LIST_TOTAL)
+				{
+					int i = ev.jdevice.which;
+					if(joystick[i])
+					{
+						char buffer[MAX_BUFFER_LEN];
+						char joy_name[MAX_BUFFER_LEN];
+						get_now_string(buffer, MAX_BUFFER_LEN, TIMESTAMP_PATTERN);
+						//close_joystick(i); //Kratus (20-04-21) disable the entire code to maintain joystick IDs
+						numjoy = SDL_NumJoysticks();
+						strcpy(joy_name,get_joystick_name(joysticks[i].Name));
+						printf("Joystick: \"%s\" disconnected from port: %d at %s\n",joy_name,i,buffer);
+					}
+				}
+				break;
 
-            default:
-                break;
+			default:
+				break;
 		}
 
 	}
@@ -254,9 +254,9 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 
 			// check buttons
 			for(j = 0; j < joysticks[i].NumButtons; j++)
-            {
-                joysticks[i].Buttons |= SDL_JoystickGetButton(joystick[i], j) << j;
-            }
+			{
+				joysticks[i].Buttons |= SDL_JoystickGetButton(joystick[i], j) << j;
+			}
 
 			// check axes
 			for(j = 0; j < joysticks[i].NumAxes; j++)
@@ -268,15 +268,15 @@ void getPads(Uint8* keystate, Uint8* keystate_def)
 
 			// check hats
 			for(j = 0; j < joysticks[i].NumHats; j++)
-            {
-                //joysticks[i].Hats |= SDL_JoystickGetHat(joystick[i], j) << (j*4);
+			{
+				//joysticks[i].Hats |= SDL_JoystickGetHat(joystick[i], j) << (j*4);
 
-                Uint8 hat_value = SDL_JoystickGetHat(joystick[i], j);
-                if(hat_value & SDL_HAT_UP)      joysticks[i].Hats |= SDL_HAT_UP     << (j*4);
-                if(hat_value & SDL_HAT_RIGHT)   joysticks[i].Hats |= SDL_HAT_RIGHT  << (j*4);
-                if(hat_value & SDL_HAT_DOWN)    joysticks[i].Hats |= SDL_HAT_DOWN   << (j*4);
-                if(hat_value & SDL_HAT_LEFT)    joysticks[i].Hats |= SDL_HAT_LEFT   << (j*4);
-            }
+				Uint8 hat_value = SDL_JoystickGetHat(joystick[i], j);
+				if(hat_value & SDL_HAT_UP)      joysticks[i].Hats |= SDL_HAT_UP     << (j*4);
+				if(hat_value & SDL_HAT_RIGHT)   joysticks[i].Hats |= SDL_HAT_RIGHT  << (j*4);
+				if(hat_value & SDL_HAT_DOWN)    joysticks[i].Hats |= SDL_HAT_DOWN   << (j*4);
+				if(hat_value & SDL_HAT_LEFT)    joysticks[i].Hats |= SDL_HAT_LEFT   << (j*4);
+			}
 
 			// combine axis, hat, and button state into a single value
 			joysticks[i].Data = joysticks[i].Buttons;
@@ -300,16 +300,16 @@ static int flag_to_index(u64 flag)
 
 char* get_joystick_name(const char* name)
 {
-    char lname[strlen(name) + 1];
+	char lname[strlen(name) + 1];
 
-    if (strlen(name) <= 0) return JOY_UNKNOWN_NAME;
-    strcpy(lname,name);
-    for(int i = 0; lname[i]; i++)
-    {
-        lname[i] = tolower(lname[i]);
-    }
-    if ( strstr(lname, "null") == NULL ) return JOY_UNKNOWN_NAME;
-    return ( (char*)name );
+	if (strlen(name) <= 0) return JOY_UNKNOWN_NAME;
+	strcpy(lname,name);
+	for(int i = 0; lname[i]; i++)
+	{
+		lname[i] = tolower(lname[i]);
+	}
+	if ( strstr(lname, "null") == NULL ) return JOY_UNKNOWN_NAME;
+	return ( (char*)name );
 }
 
 /*
@@ -328,62 +328,62 @@ void joystick_scan(int scan)
 	numjoyNoAcc = numjoy;
 
 	if (scan != 2)
-    {
-        for(i = 0; i < numjoy; i++)
-        {
-            char real_joy_name[MAX_BUFFER_LEN];
+	{
+		for(i = 0; i < numjoy; i++)
+		{
+			char real_joy_name[MAX_BUFFER_LEN];
 
-            strcpy(real_joy_name,SDL_JoystickNameForIndex(i));
-            if (strcmp(real_joy_name, "Android Accelerometer") == 0)
-            {
-                --numjoyNoAcc;
-            }
-        }
-        if(numjoyNoAcc <= 0)
-        {
-            printf("No Joystick(s) Found!\n");
-            return;
-        }
-        else
-        {
-            printf("\n%d joystick(s) found!\n", numjoyNoAcc);
-        }
-    }
+			strcpy(real_joy_name,SDL_JoystickNameForIndex(i));
+			if (strcmp(real_joy_name, "Android Accelerometer") == 0)
+			{
+				--numjoyNoAcc;
+			}
+		}
+		if(numjoyNoAcc <= 0)
+		{
+			printf("No Joystick(s) Found!\n");
+			return;
+		}
+		else
+		{
+			printf("\n%d joystick(s) found!\n", numjoyNoAcc);
+		}
+	}
 
 	if (numjoyNoAcc > JOY_LIST_TOTAL) numjoy = JOY_LIST_TOTAL; // avoid overflow bug
 
 	for(i = 0; i < numjoy; i++)
 	{
 	    int joy_idx = i;
-        char real_joy_name[MAX_BUFFER_LEN];
+		char real_joy_name[MAX_BUFFER_LEN];
 
-        strcpy(real_joy_name,SDL_JoystickNameForIndex(i));
+		strcpy(real_joy_name,SDL_JoystickNameForIndex(i));
 
-        if (strcmp(real_joy_name, "Android Accelerometer") == 0)
-        {
-            continue;
-        }
+		if (strcmp(real_joy_name, "Android Accelerometer") == 0)
+		{
+			continue;
+		}
 
-        open_joystick(joy_idx);
+		open_joystick(joy_idx);
 
-        if(scan != 2)
-        {
-            int is_rumble_support = (joystick_haptic[i] != NULL && SDL_HapticRumbleSupported(joystick_haptic[i])) ? 1 : 0;
-            char* rumble_support = (is_rumble_support) ? "yes" : "no";
+		if(scan != 2)
+		{
+			int is_rumble_support = (joystick_haptic[i] != NULL && SDL_HapticRumbleSupported(joystick_haptic[i])) ? 1 : 0;
+			char* rumble_support = (is_rumble_support) ? "yes" : "no";
 
-            // print JOY_MAX_INPUTS (64) spaces for alignment
-            if(numjoy == 1)
-            {
-                printf("%s (%s) - %d axes, %d buttons, %d hat(s), rumble support: %s\n",
-                        get_joystick_name(joysticks[joy_idx].Name), SDL_JoystickName(i), joysticks[joy_idx].NumAxes, joysticks[joy_idx].NumButtons, joysticks[joy_idx].NumHats, rumble_support);
-            }
-            else if(numjoy > 1)
-            {
-                if(joy_idx) printf("\n");
-                printf("%d. %s (%s) - %d axes, %d buttons, %d hat(s), rumble support: %s\n", i + 1,
-                        get_joystick_name(joysticks[joy_idx].Name), SDL_JoystickName(i), joysticks[joy_idx].NumAxes, joysticks[joy_idx].NumButtons, joysticks[joy_idx].NumHats, rumble_support);
-            }
-        }
+			// print JOY_MAX_INPUTS (64) spaces for alignment
+			if(numjoy == 1)
+			{
+				printf("%s (%s) - %d axes, %d buttons, %d hat(s), rumble support: %s\n",
+						get_joystick_name(joysticks[joy_idx].Name), SDL_JoystickName(i), joysticks[joy_idx].NumAxes, joysticks[joy_idx].NumButtons, joysticks[joy_idx].NumHats, rumble_support);
+			}
+			else if(numjoy > 1)
+			{
+				if(joy_idx) printf("\n");
+				printf("%d. %s (%s) - %d axes, %d buttons, %d hat(s), rumble support: %s\n", i + 1,
+						get_joystick_name(joysticks[joy_idx].Name), SDL_JoystickName(i), joysticks[joy_idx].NumAxes, joysticks[joy_idx].NumButtons, joysticks[joy_idx].NumHats, rumble_support);
+			}
+		}
 	}
 }
 
@@ -392,35 +392,35 @@ Open a single joystick
 */
 void open_joystick(int i)
 {
-    int j;
+	int j;
 
-    if ( ( joystick[i] = SDL_JoystickOpen(i) ) == NULL )
-    {
-       printf("\nWarning: Unable to initialize joystick in port: %d! SDL Error: %s\n", i, SDL_GetError());
-       return;
-    }
-    joysticks[i].NumHats = SDL_JoystickNumHats(joystick[i]);
-    joysticks[i].NumAxes = SDL_JoystickNumAxes(joystick[i]);
-    joysticks[i].NumButtons = SDL_JoystickNumButtons(joystick[i]);
+	if ( ( joystick[i] = SDL_JoystickOpen(i) ) == NULL )
+	{
+	   printf("\nWarning: Unable to initialize joystick in port: %d! SDL Error: %s\n", i, SDL_GetError());
+	   return;
+	}
+	joysticks[i].NumHats = SDL_JoystickNumHats(joystick[i]);
+	joysticks[i].NumAxes = SDL_JoystickNumAxes(joystick[i]);
+	joysticks[i].NumButtons = SDL_JoystickNumButtons(joystick[i]);
 
-    strcpy(joysticks[i].Name, SDL_JoystickName(i));
+	strcpy(joysticks[i].Name, SDL_JoystickName(i));
 
-    joystick_haptic[i] = SDL_HapticOpenFromJoystick(joystick[i]);
-    if (joystick_haptic[i] != NULL)
-    {
-        //Get initialize rumble
-        if( SDL_HapticRumbleInit( joystick_haptic[i] ) < 0 )
-        {
-            printf("\nWarning: Unable to initialize rumble for joystick: %s in port: %d! SDL Error: %s\n", joysticks[i].Name, i, SDL_GetError());
-        }
-    }
+	joystick_haptic[i] = SDL_HapticOpenFromJoystick(joystick[i]);
+	if (joystick_haptic[i] != NULL)
+	{
+		//Get initialize rumble
+		if( SDL_HapticRumbleInit( joystick_haptic[i] ) < 0 )
+		{
+			printf("\nWarning: Unable to initialize rumble for joystick: %s in port: %d! SDL Error: %s\n", joysticks[i].Name, i, SDL_GetError());
+		}
+	}
 
-    for(j = 1; j < JOY_MAX_INPUTS + 1; j++)
-    {
-        strcpy(joysticks[i].KeyName[j], PC_GetJoystickKeyName(i, j));
-    }
+	for(j = 1; j < JOY_MAX_INPUTS + 1; j++)
+	{
+		strcpy(joysticks[i].KeyName[j], PC_GetJoystickKeyName(i, j));
+	}
 
-    return;
+	return;
 }
 
 void reset_joystick_map(int i)
@@ -435,7 +435,7 @@ void reset_joystick_map(int i)
 	joysticks[i].Axes = 0;
 	joysticks[i].Buttons = 0;
 	joysticks[i].Data = 0;
-    set_default_joystick_keynames(i);
+	set_default_joystick_keynames(i);
 }
 
 /*
@@ -446,7 +446,7 @@ void control_exit()
 {
 	int i;
 	for(i = 0; i < numjoy; i++)
-    {
+	{
 		close_joystick(i);
 	}
 	usejoy = 0;
@@ -477,17 +477,17 @@ void control_init(int joy_enable)
 	//memset(joysticks, 0, sizeof(s_joysticks) * JOY_LIST_TOTAL);
 	for(i = 0; i < JOY_LIST_TOTAL; i++)
 	{
-        joystick[i] = NULL;
-        joystick_haptic[i] = NULL;
+		joystick[i] = NULL;
+		joystick_haptic[i] = NULL;
 		reset_joystick_map(i);
 	}
 	joystick_scan(usejoy);
 
 #ifdef ANDROID
 	for(i = 0; i < MAX_POINTERS; i++)
-    {
-        touch_info.pstatus[i] = TOUCH_STATUS_UP;
-    }
+	{
+		touch_info.pstatus[i] = TOUCH_STATUS_UP;
+	}
 #endif
 }
 
@@ -601,11 +601,11 @@ void control_update_android_touch(TouchStatus *touch_info, int maxp, Uint8* keys
 			{
 				tan = ty/tx;
 				if(tan>=-tana && tan<=tana)
-                {
+				{
 					touchstates[SDID_MOVELEFT] = 1;
 				}
 				else if(tan<-tanb)
-                {
+				{
 					touchstates[SDID_MOVEDOWN] = 1;
 				}
 				else if(tan>tanb)
@@ -619,13 +619,13 @@ void control_update_android_touch(TouchStatus *touch_info, int maxp, Uint8* keys
 				else
 				{
 					touchstates[SDID_MOVELEFT] = touchstates[SDID_MOVEDOWN] = 1;
-                }
+				}
 			}
 			else if(tx>0)
 			{
 				tan = ty/tx;
 				if(tan>=-tana && tan<=tana)
-                {
+				{
 					touchstates[SDID_MOVERIGHT] = 1;
 				}
 				else if(tan<-tanb)
@@ -633,28 +633,28 @@ void control_update_android_touch(TouchStatus *touch_info, int maxp, Uint8* keys
 					touchstates[SDID_MOVEUP] = 1;
 				}
 				else if(tan>tanb)
-                {
+				{
 					touchstates[SDID_MOVEDOWN] = 1;
 				}
 				else if(ty<0)
-                {
+				{
 					touchstates[SDID_MOVEUP] = touchstates[SDID_MOVERIGHT] = 1;
 				}
 				else
-                {
+				{
 					touchstates[SDID_MOVERIGHT] = touchstates[SDID_MOVEDOWN] = 1;
-                }
+				}
 			}
 			else
 			{
 				if(ty>0)
 				{
-                    touchstates[SDID_MOVEDOWN] = 1;
+					touchstates[SDID_MOVEDOWN] = 1;
 				}
 				else
 				{
 				    touchstates[SDID_MOVEUP] = 1;
-                }
+				}
 			}
 		}
 		//rest buttons
@@ -667,9 +667,9 @@ void control_update_android_touch(TouchStatus *touch_info, int maxp, Uint8* keys
 			ty = touch_info->py[i]-by[j];
 			tr = tx*tx + ty*ty;
 			if(tr<=r[j])
-            {
-                touchstates[j] = 1;
-            }
+			{
+				touchstates[j] = 1;
+			}
 		}
 	}
 	#undef tana
@@ -695,22 +695,22 @@ void control_update_android_touch(TouchStatus *touch_info, int maxp, Uint8* keys
 	#undef pc
 
 	//use default value for touch key mapping
-    keystate_def[default_keys[SDID_MOVEUP]]    = touchstates[SDID_MOVEUP];
-    keystate_def[default_keys[SDID_MOVEDOWN]]  = touchstates[SDID_MOVEDOWN];
-    keystate_def[default_keys[SDID_MOVELEFT]]  = touchstates[SDID_MOVELEFT];
-    keystate_def[default_keys[SDID_MOVERIGHT]] = touchstates[SDID_MOVERIGHT];
-    keystate_def[default_keys[SDID_ATTACK]]    = touchstates[SDID_ATTACK];
-    keystate_def[default_keys[SDID_ATTACK2]]   = touchstates[SDID_ATTACK2];
-    keystate_def[default_keys[SDID_ATTACK3]]   = touchstates[SDID_ATTACK3];
-    keystate_def[default_keys[SDID_ATTACK4]]   = touchstates[SDID_ATTACK4];
-    keystate_def[default_keys[SDID_JUMP]]      = touchstates[SDID_JUMP];
-    keystate_def[default_keys[SDID_SPECIAL]]   = touchstates[SDID_SPECIAL];
-    keystate_def[default_keys[SDID_START]]     = touchstates[SDID_START];
-    keystate_def[default_keys[SDID_SCREENSHOT]] = touchstates[SDID_SCREENSHOT];
+	keystate_def[default_keys[SDID_MOVEUP]]    = touchstates[SDID_MOVEUP];
+	keystate_def[default_keys[SDID_MOVEDOWN]]  = touchstates[SDID_MOVEDOWN];
+	keystate_def[default_keys[SDID_MOVELEFT]]  = touchstates[SDID_MOVELEFT];
+	keystate_def[default_keys[SDID_MOVERIGHT]] = touchstates[SDID_MOVERIGHT];
+	keystate_def[default_keys[SDID_ATTACK]]    = touchstates[SDID_ATTACK];
+	keystate_def[default_keys[SDID_ATTACK2]]   = touchstates[SDID_ATTACK2];
+	keystate_def[default_keys[SDID_ATTACK3]]   = touchstates[SDID_ATTACK3];
+	keystate_def[default_keys[SDID_ATTACK4]]   = touchstates[SDID_ATTACK4];
+	keystate_def[default_keys[SDID_JUMP]]      = touchstates[SDID_JUMP];
+	keystate_def[default_keys[SDID_SPECIAL]]   = touchstates[SDID_SPECIAL];
+	keystate_def[default_keys[SDID_START]]     = touchstates[SDID_START];
+	keystate_def[default_keys[SDID_SCREENSHOT]] = touchstates[SDID_SCREENSHOT];
 
-    keystate[CONTROL_ESC] = keystate_def[CONTROL_ESC] = touchstates[SDID_ESC];
+	keystate[CONTROL_ESC] = keystate_def[CONTROL_ESC] = touchstates[SDID_ESC];
 
-    return;
+	return;
 }
 
 int is_touch_area(float x, float y)
@@ -732,86 +732,86 @@ int is_touch_area(float x, float y)
 	circleb *= circleb;
 	#define tana 0.577350f
 	#define tanb 1.732051f
-    tx = x-dirx;
-    ty = y-diry;
-    tr = tx*tx + ty*ty;
-    //direction button logic is different, check a ring instead of individual buttons
-    if(tr>circlea && tr<=circleb)
-    {
-        if(tx<0)
-        {
-            tan = ty/tx;
-            if(tan>=-tana && tan<=tana)
-            {
-                return 1;
-            }
-            else if(tan<-tanb)
-            {
-                return 1;
-            }
-            else if(tan>tanb)
-            {
-                return 1;
-            }
-            else if(ty<0)
-            {
-                return 1;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-        else if(tx>0)
-        {
-            tan = ty/tx;
-            if(tan>=-tana && tan<=tana)
-            {
-                return 1;
-            }
-            else if(tan<-tanb)
-            {
-                return 1;
-            }
-            else if(tan>tanb)
-            {
-                return 1;
-            }
-            else if(ty<0)
-            {
-                return 1;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-        else
-        {
-            if(ty>0)
-            {
-                return 1;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-    }
-    //rest buttons
-    for(j=0; j<MAXTOUCHB; j++)
-    {
-        if(j==SDID_MOVERIGHT || j==SDID_MOVEUP ||
-            j==SDID_MOVELEFT || j==SDID_MOVEDOWN)
-            continue;
-        tx = x-bx[j];
-        ty = y-by[j];
-        tr = tx*tx + ty*ty;
-        if(tr<=r[j])
-        {
-            return 1;
-        }
-    }
+	tx = x-dirx;
+	ty = y-diry;
+	tr = tx*tx + ty*ty;
+	//direction button logic is different, check a ring instead of individual buttons
+	if(tr>circlea && tr<=circleb)
+	{
+		if(tx<0)
+		{
+			tan = ty/tx;
+			if(tan>=-tana && tan<=tana)
+			{
+				return 1;
+			}
+			else if(tan<-tanb)
+			{
+				return 1;
+			}
+			else if(tan>tanb)
+			{
+				return 1;
+			}
+			else if(ty<0)
+			{
+				return 1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+		else if(tx>0)
+		{
+			tan = ty/tx;
+			if(tan>=-tana && tan<=tana)
+			{
+				return 1;
+			}
+			else if(tan<-tanb)
+			{
+				return 1;
+			}
+			else if(tan>tanb)
+			{
+				return 1;
+			}
+			else if(ty<0)
+			{
+				return 1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+		else
+		{
+			if(ty>0)
+			{
+				return 1;
+			}
+			else
+			{
+				return 1;
+			}
+		}
+	}
+	//rest buttons
+	for(j=0; j<MAXTOUCHB; j++)
+	{
+		if(j==SDID_MOVERIGHT || j==SDID_MOVEUP ||
+			j==SDID_MOVELEFT || j==SDID_MOVEDOWN)
+			continue;
+		tx = x-bx[j];
+		ty = y-by[j];
+		tr = tx*tx + ty*ty;
+		if(tr<=r[j])
+		{
+			return 1;
+		}
+	}
 	#undef tana
 	#undef tanb
 
@@ -875,22 +875,22 @@ void control_update(s_playercontrols ** playercontrols, int numplayers)
 		{
 			t = pcontrols->settings[i];
 			if(t >= SDLK_FIRST && t < SDLK_LAST){
-                if(keystate[t]) k |= (1<<i);
+				if(keystate[t]) k |= (1<<i);
 			}
 		}
 
-        //White Dragon: Set input from default keys overriding previous keys
-        //Default keys are available just if no configured keys are pressed!
-        if (player <= 0 && !k)
-        {
-            for(i = 0; i < JOY_MAX_INPUTS; i++)
-            {
-                t = default_control.settings[i];
-                if(t >= SDLK_FIRST && t < SDLK_LAST){
-                    if(keystate_def[t]) k |= (1<<i);
-                }
-            }
-        }
+		//White Dragon: Set input from default keys overriding previous keys
+		//Default keys are available just if no configured keys are pressed!
+		if (player <= 0 && !k)
+		{
+			for(i = 0; i < JOY_MAX_INPUTS; i++)
+			{
+				t = default_control.settings[i];
+				if(t >= SDLK_FIRST && t < SDLK_LAST){
+					if(keystate_def[t]) k |= (1<<i);
+				}
+			}
+		}
 
 		if(usejoy)
 		{
@@ -918,13 +918,12 @@ void control_update(s_playercontrols ** playercontrols, int numplayers)
 
 void control_rumble(int port, int ratio, int msec)
 {
-    #if SDL
-    if (joystick[port] != NULL && joystick_haptic[port] != NULL) {
-        if(SDL_HapticRumblePlay(joystick_haptic[port], ratio, msec) != 0)
-        {
-            //printf( "Warning: Unable to play rumble! %s\n", SDL_GetError() );
-        }
-    }
-    #endif
+	#if SDL
+	if (joystick[port] != NULL && joystick_haptic[port] != NULL) {
+		if(SDL_HapticRumblePlay(joystick_haptic[port], ratio, msec) != 0)
+		{
+			//printf( "Warning: Unable to play rumble! %s\n", SDL_GetError() );
+		}
+	}
+	#endif
 }
-

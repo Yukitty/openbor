@@ -19,12 +19,12 @@
 
 typedef struct
 {
-    s_sprite 	*token[256];
-    int		token_width[256];
-    int		width;
-    int		height;
-    int		mbs;
-    int		mono;
+	s_sprite 	*token[256];
+	int		token_width[256];
+	int		width;
+	int		height;
+	int		mbs;
+	int		mono;
 } s_font;
 
 void font_unload(int which);

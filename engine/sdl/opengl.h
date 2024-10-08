@@ -39,4 +39,3 @@ int video_gl_display_yuv_frame(void);
 
 #endif
 #endif
-

@@ -18,7 +18,7 @@
 
 static inline void *safeRealloc(void *ptr, size_t size, const char *func, const char *file, int line)
 {
-    return checkAlloc(realloc(ptr, size), size, func, file, line);
+	return checkAlloc(realloc(ptr, size), size, func, file, line);
 }
 
 // attributes can only be declared on function declarations, so declare these before defining them
@@ -28,21 +28,21 @@ static inline void *safeStrdup(const char *str, const char *func, const char *fi
 
 static inline void *safeMalloc(size_t size, const char *func, const char *file, int line)
 {
-    return checkAlloc(malloc(size), size, func, file, line);
+	return checkAlloc(malloc(size), size, func, file, line);
 }
 
 static inline void *safeCalloc(size_t nmemb, size_t size, const char *func, const char *file, int line)
 {
-    return checkAlloc(calloc(nmemb, size), size, func, file, line);
+	return checkAlloc(calloc(nmemb, size), size, func, file, line);
 }
 
 static inline void *safeStrdup(const char *str, const char *func, const char *file, int line)
 {
-    // reimplement strdup to avoid doing strlen(str) twice
-    int size = strlen(str) + 1;
-    char *newString = (char *) checkAlloc(malloc(size), size, func, file, line);
-    memcpy(newString, str, size);
-    return newString;
+	// reimplement strdup to avoid doing strlen(str) twice
+	int size = strlen(str) + 1;
+	char *newString = (char *) checkAlloc(malloc(size), size, func, file, line);
+	memcpy(newString, str, size);
+	return newString;
 }
 
 #define realloc(ptr, size) safeRealloc(ptr, size, __func__, __FILE__, __LINE__)

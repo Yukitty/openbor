@@ -37,4 +37,3 @@ int video_display_yuv_frame(void);
 int video_current_refresh_rate();
 
 #endif
-

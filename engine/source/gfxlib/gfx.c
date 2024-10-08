@@ -36,25 +36,25 @@ char *GfxBlitterNames[(BLITTER_MAX * 2) + 1] =
 	x" Scanlines TV",   \
 	x" TV 2x",          \
 	x" Dot Matrix",
-    BIT_NAMES("16-Bit")
-    BIT_NAMES("32-Bit")
-    "Unknown"
+	BIT_NAMES("16-Bit")
+	BIT_NAMES("32-Bit")
+	"Unknown"
 };
 
 GfxBlitterTypes GfxBlitters[BLITTER_MAX * 2] =
 {
-    Simple2x,
-    Bilinear,
-    AdMame2x,
-    Scanlines,
-    ScanlinesTV,
-    Tv2x,
-    DotMatrix,
-    Simple2x32,
-    Bilinear,
-    AdMame2x32,
-    Scanlines32,
-    ScanlinesTV,
-    Tv2x,
-    DotMatrix,
+	Simple2x,
+	Bilinear,
+	AdMame2x,
+	Scanlines,
+	ScanlinesTV,
+	Tv2x,
+	DotMatrix,
+	Simple2x32,
+	Bilinear,
+	AdMame2x32,
+	Scanlines32,
+	ScanlinesTV,
+	Tv2x,
+	DotMatrix,
 };

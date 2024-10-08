@@ -14,8 +14,8 @@
 
 typedef struct
 {
-    char *ptr;
-    size_t size;
+	char *ptr;
+	size_t size;
 } stringptr;
 
 stringptr *new_string(size_t size);

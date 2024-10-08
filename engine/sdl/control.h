@@ -108,15 +108,15 @@ int keyboard_getlastkey();
 #define MAX_POINTERS 30
 typedef enum
 {
-    TOUCH_STATUS_UP,
-    TOUCH_STATUS_DOWN
+	TOUCH_STATUS_UP,
+	TOUCH_STATUS_DOWN
 } touch_status;
 
 typedef struct TouchStatus {
-    float px[MAX_POINTERS];
-    float py[MAX_POINTERS];
-    SDL_FingerID pid[MAX_POINTERS];
-    touch_status pstatus[MAX_POINTERS];
+	float px[MAX_POINTERS];
+	float py[MAX_POINTERS];
+	SDL_FingerID pid[MAX_POINTERS];
+	touch_status pstatus[MAX_POINTERS];
 } TouchStatus;
 
 int is_touchpad_vibration_enabled();
@@ -127,4 +127,3 @@ int is_touch_area(float x, float y);
 
 
 #endif
-

@@ -26,15 +26,15 @@ static int bytes_per_pixel;
 s_videomodes setupPreBlitProcessing(s_videomodes videomodes)
 {
 	bytes_per_pixel = videomodes.pixel;
-	
+
 	if(screen) { SDL_FreeSurface(screen); screen=NULL; }
 	if(bscreen) { SDL_FreeSurface(bscreen); bscreen=NULL; }
 	if(bscreen2) { SDL_FreeSurface(bscreen2); bscreen2=NULL; }
-	
+
 	// set scale factors to 1 by default
 	videomodes.hScale = savedata.hwscale;
 	videomodes.vScale = savedata.hwscale;
-	
+
 	// set up indexed to RGB conversion
 	if(videomodes.pixel == 1)
 	{
@@ -44,7 +44,7 @@ s_videomodes setupPreBlitProcessing(s_videomodes videomodes)
 		SDL_SetSurfacePalette(bscreen, screenPalette);
 		videomodes.pixel = 4;
 	}
-	
+
 	// set up software scaling
 	if(savedata.swfilter && (savedata.hwscale >= 2.0 || savedata.fullscreen))
 	{
@@ -53,7 +53,7 @@ s_videomodes setupPreBlitProcessing(s_videomodes videomodes)
 		if (!bscreen) bscreen = SDL_CreateRGBSurface(0, videomodes.hRes, videomodes.vRes, 8*bytes_per_pixel, masks[bytes_per_pixel-1][0], masks[bytes_per_pixel-1][1], masks[bytes_per_pixel-1][2], masks[bytes_per_pixel-1][3]); // 24bit mask
 		bscreen2 = SDL_CreateRGBSurface(0, videomodes.hRes+4, videomodes.vRes+8, 16, masks[1][0], masks[1][1], masks[1][2], masks[1][3]);
 		memset(pDeltaBuffer, 0x00, 1244160);
-		
+
 		assert(bscreen);
 		assert(bscreen2);
 
@@ -63,7 +63,7 @@ s_videomodes setupPreBlitProcessing(s_videomodes videomodes)
 		videomodes.vScale /= 2;
 		videomodes.pixel = 2;
 	}
-	
+
 	return videomodes;
 }
 
@@ -111,7 +111,7 @@ s_videosurface *getVideoSurface(s_screen *src)
 			(*GfxBlitters[savedata.swfilter])((u8*)bscreen2->pixels+bscreen2->pitch*4+4, bscreen2->pitch, pDeltaBuffer+bscreen2->pitch, (u8*)screen->pixels, screen->pitch, screen->w/2, screen->h/2);
 		}
 		else SDL_BlitSurface(bscreen, NULL, screen, NULL);
-		
+
 		videoSurface.width = screen->w;
 		videoSurface.height = screen->h;
 		videoSurface.pitch = screen->pitch;
@@ -141,4 +141,3 @@ void vga_setpalette(unsigned char* palette)
 	if(!screenPalette) screenPalette = SDL_AllocPalette(256);
 	SDL_SetPaletteColors(screenPalette, colors, 0, 256);
 }
-

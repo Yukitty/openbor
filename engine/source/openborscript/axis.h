@@ -5,24 +5,24 @@
 
 typedef enum
 {
-    _AXIS_PLANE_LATERAL_X,
-    _AXIS_PLANE_LATERAL_Z,
-    _AXIS_PLANE_LATERAL_END,
+	_AXIS_PLANE_LATERAL_X,
+	_AXIS_PLANE_LATERAL_Z,
+	_AXIS_PLANE_LATERAL_END,
 } e_axis_plane_lateral_properties;
 
 typedef enum
 {
-    _AXIS_PLANE_VERTICAL_X,
-    _AXIS_PLANE_VERTICAL_Y,
-    _AXIS_PLANE_VERTICAL_END,
+	_AXIS_PLANE_VERTICAL_X,
+	_AXIS_PLANE_VERTICAL_Y,
+	_AXIS_PLANE_VERTICAL_END,
 } e_axis_plane_vertical_properties;
 
 typedef enum
 {
-    _AXIS_PRINCIPAL_X,
-    _AXIS_PRINCIPAL_Y,
-    _AXIS_PRINCIPAL_Z,
-    _AXIS_PRINCIPAL_END,
+	_AXIS_PRINCIPAL_X,
+	_AXIS_PRINCIPAL_Y,
+	_AXIS_PRINCIPAL_Z,
+	_AXIS_PRINCIPAL_END,
 } e_axis_principal_properties;
 
 // Access and mutator prototypes.

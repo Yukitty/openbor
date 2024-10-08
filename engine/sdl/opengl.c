@@ -43,7 +43,7 @@ extern int nativeWidth, nativeHeight;
 extern SDL_Window* window;
 
 #define FRAGMENT_SHADER_COMMON                                             \
-    "uniform sampler2D tex;\n"                                             \
+	"uniform sampler2D tex;\n"                                             \
 	"uniform float brightness;\n"                                          \
 	"uniform float gamma;\n"                                               \
 	"uniform vec2 texDims;\n"                                              \
@@ -71,13 +71,13 @@ extern SDL_Window* window;
 
 #define FRAGMENT_SHADER_RGB_HIGH_QUALITY                                   \
 	"vec3 getPixel(vec2 coord)\n"                                          \
-    "{\n"                                                                  \
-    "   vec2 texel = coord * texDims;\n"                                   \
-    "   float region_range = 0.5 - 0.5 / scaleFactor;\n"                   \
-    "   vec2 distFromCenter = fract(texel) - 0.5;\n"                       \
-    "   vec2 f = (distFromCenter - clamp(distFromCenter, -region_range, region_range)) * scaleFactor + 0.5;\n" \
-    "   return texture2D(tex, (floor(texel) + f) / texDims).xyz;\n"        \
-    "}\n"                                                                  \
+	"{\n"                                                                  \
+	"   vec2 texel = coord * texDims;\n"                                   \
+	"   float region_range = 0.5 - 0.5 / scaleFactor;\n"                   \
+	"   vec2 distFromCenter = fract(texel) - 0.5;\n"                       \
+	"   vec2 f = (distFromCenter - clamp(distFromCenter, -region_range, region_range)) * scaleFactor + 0.5;\n" \
+	"   return texture2D(tex, (floor(texel) + f) / texDims).xyz;\n"        \
+	"}\n"                                                                  \
 	"void main()\n"                                                        \
 	"{\n"                                                                  \
 	"    vec3 color = getPixel(gl_TexCoord[0].xy).xyz;\n"                  \
@@ -111,16 +111,16 @@ extern SDL_Window* window;
 
 
 static const char *fragmentShaderSourceHighQualityRGB =
-        FRAGMENT_SHADER_COMMON FRAGMENT_SHADER_RGB_HIGH_QUALITY;
+		FRAGMENT_SHADER_COMMON FRAGMENT_SHADER_RGB_HIGH_QUALITY;
 static const char *fragmentShaderSourceYUV =
-        FRAGMENT_SHADER_COMMON FRAGMENT_SHADER_YUV;
+		FRAGMENT_SHADER_COMMON FRAGMENT_SHADER_YUV;
 /*static const char *vertexShaderSource =
-        "varying vec2 texCoord;\n"
-        "void main()\n"
-        "{\n"
-        "    gl_TexCoord[0] = gl_MultiTexCoord0;\n"
-        "    gl_Position = ftransform();\n"
-        "}\n";*/
+		"varying vec2 texCoord;\n"
+		"void main()\n"
+		"{\n"
+		"    gl_TexCoord[0] = gl_MultiTexCoord0;\n"
+		"    gl_Position = ftransform();\n"
+		"}\n";*/
 
 // calculates scale factors and offsets based on viewport and texture sizes
 void video_gl_setup_screen()

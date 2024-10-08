@@ -21,39 +21,39 @@
 #pragma pack(1)
 typedef struct
 {
-    union
-    {
-        struct
-        {
+	union
+	{
+		struct
+		{
 #ifdef BOR_BIG_ENDIAN
-            unsigned char a; //unused
-            unsigned char b;
-            unsigned char g;
-            unsigned char r;
+			unsigned char a; //unused
+			unsigned char b;
+			unsigned char g;
+			unsigned char r;
 #else
 	        unsigned char r;
-            unsigned char g;
-            unsigned char b;
-            unsigned char a; //unused
+			unsigned char g;
+			unsigned char b;
+			unsigned char a; //unused
 #endif
-        } C;
-        unsigned c;
-    };
+		} C;
+		unsigned c;
+	};
 } RGB32;
 
 typedef struct
 {
-    union
-    {
-        struct
-        {
-            unsigned r: 5;
-            unsigned g: 6;
-            unsigned b: 5;
-            unsigned a: 16; //unused
-        } C;
-        unsigned c;
-    };
+	union
+	{
+		struct
+		{
+			unsigned r: 5;
+			unsigned g: 6;
+			unsigned b: 5;
+			unsigned a: 16; //unused
+		} C;
+		unsigned c;
+	};
 } RGB16;
 
 int pixelformat = PIXEL_x8;
@@ -70,51 +70,51 @@ int clipx1, clipy1, clipx2, clipy2;
 void drawmethod_global_init(s_drawmethod *drawmethod)
 {
 
-    if(drawmethod && drawmethod->config & DRAWMETHOD_CONFIG_ENABLED)
-    {
+	if(drawmethod && drawmethod->config & DRAWMETHOD_CONFIG_ENABLED)
+	{
 #if REVERSE_COLOR
-        channelr = drawmethod->channelb;
-        channelb = drawmethod->channelr;
+		channelr = drawmethod->channelb;
+		channelb = drawmethod->channelr;
 #else
-        channelr = drawmethod->channelr;
-        channelb = drawmethod->channelb;
+		channelr = drawmethod->channelr;
+		channelb = drawmethod->channelb;
 #endif
-        channelg = drawmethod->channelg;
-        tintmode = drawmethod->tintmode;
-        tintcolor = drawmethod->tintcolor;
-        usechannel = (channelr < 255) || (channelg < 255) || (channelb < 255);
-    }
-    else
-    {
-        usechannel = tintmode = 0;
-    }
+		channelg = drawmethod->channelg;
+		tintmode = drawmethod->tintmode;
+		tintcolor = drawmethod->tintcolor;
+		usechannel = (channelr < 255) || (channelg < 255) || (channelb < 255);
+	}
+	else
+	{
+		usechannel = tintmode = 0;
+	}
 
 
-    if((useclip = drawmethod && drawmethod->config & DRAWMETHOD_CONFIG_ENABLED && drawmethod->clipw > 0 && drawmethod->cliph > 0))
-    {
-        clipx1 = drawmethod->clipx;
-        clipy1 = drawmethod->clipy;
-        clipx2 = clipx1 + drawmethod->clipw;
-        clipy2 = clipy1 + drawmethod->cliph;
-    }
+	if((useclip = drawmethod && drawmethod->config & DRAWMETHOD_CONFIG_ENABLED && drawmethod->clipw > 0 && drawmethod->cliph > 0))
+	{
+		clipx1 = drawmethod->clipx;
+		clipy1 = drawmethod->clipy;
+		clipx2 = clipx1 + drawmethod->clipw;
+		clipy2 = clipy1 + drawmethod->cliph;
+	}
 }
 
 
 unsigned short colour16(unsigned char r, unsigned char g, unsigned char b)
 {
 #if REVERSE_COLOR
-    return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+	return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
 #else
-    return ((b & 0xF8) << 8) | ((g & 0xFC) << 3) | (r >> 3);
+	return ((b & 0xF8) << 8) | ((g & 0xFC) << 3) | (r >> 3);
 #endif
 }
 
 unsigned colour32(unsigned char r, unsigned char g, unsigned char b)
 {
 #if REVERSE_COLOR
-    return ((r << 16) | (g << 8) | b);
+	return ((r << 16) | (g << 8) | b);
 #else
-    return ((b << 16) | (g << 8) | r);
+	return ((b << 16) | (g << 8) | r);
 #endif
 }
 
@@ -149,33 +149,33 @@ unsigned colour32(unsigned char r, unsigned char g, unsigned char b)
 // common blend function
 unsigned blend_multiply(unsigned color1, unsigned color2)
 {
-    return _multiply(color1, color2);
+	return _multiply(color1, color2);
 }
 
 unsigned blend_screen(unsigned color1, unsigned color2)
 {
-    return _screen(color1, color2);
+	return _screen(color1, color2);
 }
 
 unsigned blend_overlay(unsigned color1, unsigned color2)
 {
-    return _overlay(color1, color2);
+	return _overlay(color1, color2);
 }
 
 unsigned blend_hardlight(unsigned color1, unsigned color2)
 {
-    return _hardlight(color1, color2);
+	return _hardlight(color1, color2);
 }
 
 unsigned blend_dodge(unsigned color1, unsigned color2)
 {
-    unsigned c = _dodge(color1, color2);
-    return c > 255 ? 255 : c;
+	unsigned c = _dodge(color1, color2);
+	return c > 255 ? 255 : c;
 }
 
 unsigned blend_half(unsigned color1, unsigned color2)
 {
-    return (color1 + color2) >> 1;
+	return (color1 + color2) >> 1;
 }
 
 /////////////////////// blend 2 32bit colours //////////////////////
@@ -185,189 +185,189 @@ unsigned blend_half(unsigned color1, unsigned color2)
 
 unsigned char *create_multiply32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_multiply(i, j);
-        }
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_multiply(i, j);
+		}
 
-    return tbl;
+	return tbl;
 }
 
 
 unsigned blend_multiply32(unsigned color1, unsigned color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_MULTIPLY]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    return _color(_multiply(color1 >> 16, color2 >> 16),
-                  _multiply((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8),
-                  _multiply(color1 & 0xFF, color2 & 0xFF));
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_MULTIPLY]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	return _color(_multiply(color1 >> 16, color2 >> 16),
+				  _multiply((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8),
+				  _multiply(color1 & 0xFF, color2 & 0xFF));
 }
 
 unsigned char *create_screen32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_screen(i, j);
-        }
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_screen(i, j);
+		}
 
-    return tbl;
+	return tbl;
 }
 
 unsigned blend_screen32(unsigned color1, unsigned color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_SCREEN]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    return _color(_screen(color1 >> 16, color2 >> 16),
-                  _screen((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8),
-                  _screen(color1 & 0xFF, color2 & 0xFF));
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_SCREEN]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	return _color(_screen(color1 >> 16, color2 >> 16),
+				  _screen((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8),
+				  _screen(color1 & 0xFF, color2 & 0xFF));
 }
 
 unsigned char *create_overlay32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_overlay(i, j);
-        }
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_overlay(i, j);
+		}
 
-    return tbl;
+	return tbl;
 }
 
 unsigned blend_overlay32(unsigned color1, unsigned color2)
 {
-    int r1, g1, b1, r2, g2, b2;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_OVERLAY]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    b1 = color1 >> 16, b2 = color2 >> 16;
-    g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
-    r1 = color1 & 0xFF, r2 = color2 & 0xFF;
-    return _color(_overlay(r1, r2),
-                  _overlay(g1, g2),
-                  _overlay(b1, b2));
+	int r1, g1, b1, r2, g2, b2;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_OVERLAY]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	b1 = color1 >> 16, b2 = color2 >> 16;
+	g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
+	r1 = color1 & 0xFF, r2 = color2 & 0xFF;
+	return _color(_overlay(r1, r2),
+				  _overlay(g1, g2),
+				  _overlay(b1, b2));
 }
 
 unsigned char *create_hardlight32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_hardlight(i, j);
-        }
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_hardlight(i, j);
+		}
 
-    return tbl;
+	return tbl;
 }
 
 unsigned blend_hardlight32(unsigned color1, unsigned color2)
 {
-    int r1, g1, b1, r2, g2, b2;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_HARDLIGHT]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    b1 = color1 >> 16, b2 = color2 >> 16;
-    g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
-    r1 = color1 & 0xFF, r2 = color2 & 0xFF;
-    return _color(_hardlight(r1, r2),
-                  _hardlight(g1, g2),
-                  _hardlight(b1, b2));
+	int r1, g1, b1, r2, g2, b2;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_HARDLIGHT]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	b1 = color1 >> 16, b2 = color2 >> 16;
+	g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
+	r1 = color1 & 0xFF, r2 = color2 & 0xFF;
+	return _color(_hardlight(r1, r2),
+				  _hardlight(g1, g2),
+				  _hardlight(b1, b2));
 }
 
 unsigned char *create_dodge32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_dodge(i, j);
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_dodge(i, j);
+		}
+	return tbl;
 }
 
 unsigned blend_dodge32(unsigned color1, unsigned color2)
 {
-    unsigned r, g, b;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_DODGE]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    b = _dodge(color1 >> 16, color2 >> 16);
-    g = _dodge((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8);
-    r = _dodge(color1 & 0xFF, color2 & 0xFF);
-    return _color(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b);
+	unsigned r, g, b;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_DODGE]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	b = _dodge(color1 >> 16, color2 >> 16);
+	g = _dodge((color1 & 0xFF00) >> 8, (color2 & 0xFF00) >> 8);
+	r = _dodge(color1 & 0xFF, color2 & 0xFF);
+	return _color(r > 255 ? 255 : r, g > 255 ? 255 : g, b > 255 ? 255 : b);
 }
 
 unsigned char *create_half32_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(256 * 256);
-    for(i = 0; i < 256; i++)
-        for(j = 0; j < 256; j++)
-        {
-            tbl[(i << 8) | j] = (unsigned char)blend_half(i, j);
-        }
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(256 * 256);
+	for(i = 0; i < 256; i++)
+		for(j = 0; j < 256; j++)
+		{
+			tbl[(i << 8) | j] = (unsigned char)blend_half(i, j);
+		}
 
-    return tbl;
+	return tbl;
 }
 
 unsigned blend_half32(unsigned color1, unsigned color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_HALF]))
-    {
-        return _color(tbl[ri], tbl[gi], tbl[bi]);
-    }
-    return _color(((color1 >> 16) + (color2 >> 16)) >> 1,
-                  (((color1 & 0xFF00) >> 8) + ((color2 & 0xFF00) >> 8)) >> 1,
-                  ((color1 & 0xFF) + (color2 & 0xFF)) >> 1);
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_HALF]))
+	{
+		return _color(tbl[ri], tbl[gi], tbl[bi]);
+	}
+	return _color(((color1 >> 16) + (color2 >> 16)) >> 1,
+				  (((color1 & 0xFF00) >> 8) + ((color2 & 0xFF00) >> 8)) >> 1,
+				  ((color1 & 0xFF) + (color2 & 0xFF)) >> 1);
 }
 
 unsigned blend_tint32(unsigned color1, unsigned color2)
 {
-    unsigned c = tint32fp1(tintcolor, color1);
-    return tint32fp2 ? tint32fp2(c, color2) : c;
+	unsigned c = tint32fp1(tintcolor, color1);
+	return tint32fp2 ? tint32fp2(c, color2) : c;
 }
 
 //copy from below
 unsigned blend_rgbchannel32(unsigned color1, unsigned color2)
 {
-    unsigned b1 = color1 >> 16, b2 = color2 >> 16;
-    unsigned g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
-    unsigned r1 = color1 & 0xFF, r2 = color2 & 0xFF;
-    return _color(	_channel(r1, r2, channelr),
-                    _channel(g1, g2, channelg),
-                    _channel(b1, b2, channelb));
+	unsigned b1 = color1 >> 16, b2 = color2 >> 16;
+	unsigned g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
+	unsigned r1 = color1 & 0xFF, r2 = color2 & 0xFF;
+	return _color(	_channel(r1, r2, channelr),
+					_channel(g1, g2, channelg),
+					_channel(b1, b2, channelb));
 }
 
 unsigned blend_channel32(unsigned color1, unsigned color2, unsigned a)
 {
-    int b1 = color1 >> 16, b2 = color2 >> 16;
-    int g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
-    int r1 = color1 & 0xFF, r2 = color2 & 0xFF;
-    return _color(	_channel(r1, r2, a),
-                    _channel(g1, g2, a),
-                    _channel(b1, b2, a));
+	int b1 = color1 >> 16, b2 = color2 >> 16;
+	int g1 = (color1 & 0xFF00) >> 8, g2 = (color2 & 0xFF00) >> 8;
+	int r1 = color1 & 0xFF, r2 = color2 & 0xFF;
+	return _color(	_channel(r1, r2, a),
+					_channel(g1, g2, a),
+					_channel(b1, b2, a));
 }
 
 /////////////////////// blend 2 16bit colours //////////////////////
@@ -394,217 +394,217 @@ unsigned blend_channel32(unsigned color1, unsigned color2, unsigned a)
 
 unsigned char *create_multiply16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            tbl[(i << 5) | j] = (unsigned char)_multiply16(i, j, 0x1f);
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            tbl[((i << 6) | j) + 1024] = (unsigned char)_multiply16(i, j, 0x3f);
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			tbl[(i << 5) | j] = (unsigned char)_multiply16(i, j, 0x1f);
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			tbl[((i << 6) | j) + 1024] = (unsigned char)_multiply16(i, j, 0x3f);
+		}
+	return tbl;
 }
 
 //16bit blending, bit565
 unsigned short blend_multiply16(unsigned short color1, unsigned short color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_MULTIPLY]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    return _color16(_multiply16(_r1, _r2, 0x1F), _multiply16(_g1, _g2, 0x3F), _multiply16(_b1, _b2, 0x1F));
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_MULTIPLY]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	return _color16(_multiply16(_r1, _r2, 0x1F), _multiply16(_g1, _g2, 0x3F), _multiply16(_b1, _b2, 0x1F));
 }
 
 unsigned char *create_screen16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            tbl[(i << 5) | j] = (unsigned char)_screen16(i, j, 0x1f);
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            tbl[((i << 6) | j) + 1024] = (unsigned char)_screen16(i, j, 0x3f);
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			tbl[(i << 5) | j] = (unsigned char)_screen16(i, j, 0x1f);
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			tbl[((i << 6) | j) + 1024] = (unsigned char)_screen16(i, j, 0x3f);
+		}
+	return tbl;
 }
 
 unsigned short blend_screen16(unsigned short color1, unsigned short color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_SCREEN]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    return _color16(_screen16(_r1, _r2, 0x1F), _screen16(_g1, _g2, 0x3F), _screen16(_b1, _b2, 0x1F));
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_SCREEN]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	return _color16(_screen16(_r1, _r2, 0x1F), _screen16(_g1, _g2, 0x3F), _screen16(_b1, _b2, 0x1F));
 }
 
 unsigned char *create_overlay16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            tbl[(i << 5) | j] = (unsigned char)_overlay16(i, j, 0x10, 0x1f);
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            tbl[((i << 6) | j) + 1024] = (unsigned char)_overlay16(i, j, 0x20, 0x3f);
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			tbl[(i << 5) | j] = (unsigned char)_overlay16(i, j, 0x10, 0x1f);
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			tbl[((i << 6) | j) + 1024] = (unsigned char)_overlay16(i, j, 0x20, 0x3f);
+		}
+	return tbl;
 }
 
 unsigned short blend_overlay16(unsigned short color1, unsigned short color2)
 {
-    unsigned r1, g1, b1, r2, g2, b2;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_OVERLAY]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    r1 = _r1, r2 = _r2;
-    g1 = _g1, g2 = _g2;
-    b1 = _b1, b2 = _b2;
-    return _color16(_overlay16(r1, r2, 0x10, 0x1F), _overlay16(g1, g2, 0x20, 0x3F), _overlay16(b1, b2, 0x10, 0x1F));
+	unsigned r1, g1, b1, r2, g2, b2;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_OVERLAY]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	r1 = _r1, r2 = _r2;
+	g1 = _g1, g2 = _g2;
+	b1 = _b1, b2 = _b2;
+	return _color16(_overlay16(r1, r2, 0x10, 0x1F), _overlay16(g1, g2, 0x20, 0x3F), _overlay16(b1, b2, 0x10, 0x1F));
 }
 
 unsigned char *create_hardlight16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            tbl[(i << 5) | j] = (unsigned char)_hardlight16(i, j, 0x10, 0x1f);
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            tbl[((i << 6) | j) + 1024] = (unsigned char)_hardlight16(i, j, 0x20, 0x3f);
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			tbl[(i << 5) | j] = (unsigned char)_hardlight16(i, j, 0x10, 0x1f);
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			tbl[((i << 6) | j) + 1024] = (unsigned char)_hardlight16(i, j, 0x20, 0x3f);
+		}
+	return tbl;
 }
 
 unsigned short blend_hardlight16(unsigned short color1, unsigned short color2)
 {
-    unsigned r1, g1, b1, r2, g2, b2;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_HARDLIGHT]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    r1 = _r1, r2 = _r2;
-    g1 = _g1, g2 = _g2;
-    b1 = _b1, b2 = _b2;
-    return _color16(_hardlight16(r1, r2, 0x10, 0x1F), _hardlight16(g1, g2, 0x20, 0x3F), _hardlight16(b1, b2, 0x10, 0x1F));
+	unsigned r1, g1, b1, r2, g2, b2;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_HARDLIGHT]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	r1 = _r1, r2 = _r2;
+	g1 = _g1, g2 = _g2;
+	b1 = _b1, b2 = _b2;
+	return _color16(_hardlight16(r1, r2, 0x10, 0x1F), _hardlight16(g1, g2, 0x20, 0x3F), _hardlight16(b1, b2, 0x10, 0x1F));
 }
 
 unsigned char *create_dodge16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    unsigned t;
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            t = _dodge16(i, j, 0x20);
-            if(t > 0x1f)
-            {
-                t = 0x1f;
-            }
-            tbl[(i << 5) | j] = t;
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            t = _dodge16(i, j, 0x40);
-            if(t > 0x3f)
-            {
-                t = 0x3f;
-            }
-            tbl[((i << 6) | j) + 1024] = t;
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	unsigned t;
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			t = _dodge16(i, j, 0x20);
+			if(t > 0x1f)
+			{
+				t = 0x1f;
+			}
+			tbl[(i << 5) | j] = t;
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			t = _dodge16(i, j, 0x40);
+			if(t > 0x3f)
+			{
+				t = 0x3f;
+			}
+			tbl[((i << 6) | j) + 1024] = t;
+		}
+	return tbl;
 }
 
 unsigned short blend_dodge16(unsigned short color1, unsigned short color2)
 {
-    int r, g, b;
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_DODGE]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    r = _dodge16(_r1, _r2, 0x20);
-    g = _dodge16(_g1, _g2, 0x40);
-    b = _dodge16(_b1, _b2, 0x20);
-    if(r > 0x1F)
-    {
-        r = 0x1F;
-    }
-    if(g > 0x3F)
-    {
-        g = 0x3F;
-    }
-    if(b > 0x1F)
-    {
-        b = 0x1F;
-    }
-    return _color16(r, g, b);
+	int r, g, b;
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_DODGE]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	r = _dodge16(_r1, _r2, 0x20);
+	g = _dodge16(_g1, _g2, 0x40);
+	b = _dodge16(_b1, _b2, 0x20);
+	if(r > 0x1F)
+	{
+		r = 0x1F;
+	}
+	if(g > 0x3F)
+	{
+		g = 0x3F;
+	}
+	if(b > 0x1F)
+	{
+		b = 0x1F;
+	}
+	return _color16(r, g, b);
 }
 
 unsigned char *create_half16_tbl()
 {
-    unsigned i, j;
-    unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
-    for(i = 0; i < 32; i++)
-        for(j = 0; j < 32; j++)
-        {
-            tbl[(i << 5) | j] = (i + j) >> 1;
-        }
-    for(i = 0; i < 64; i++)
-        for(j = 0; j < 64; j++)
-        {
-            tbl[((i << 6) | j) + 1024] = (i + j) >> 1;
-        }
-    return tbl;
+	unsigned i, j;
+	unsigned char *tbl = (unsigned char *)malloc(32 * 32 + 64 * 64);
+	for(i = 0; i < 32; i++)
+		for(j = 0; j < 32; j++)
+		{
+			tbl[(i << 5) | j] = (i + j) >> 1;
+		}
+	for(i = 0; i < 64; i++)
+		for(j = 0; j < 64; j++)
+		{
+			tbl[((i << 6) | j) + 1024] = (i + j) >> 1;
+		}
+	return tbl;
 }
 
 unsigned short blend_half16(unsigned short color1, unsigned short color2)
 {
-    unsigned char *tbl;
-    if((tbl = blendtables[BLEND_HALF]))
-    {
-        return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
-    }
-    return _color16((_r1 + _r2) >> 1, (_g1 + _g2) >> 1, (_b1 + _b2) >> 1);
+	unsigned char *tbl;
+	if((tbl = blendtables[BLEND_HALF]))
+	{
+		return _color16(tbl[_ri], tbl[_gi], tbl[_bi]);
+	}
+	return _color16((_r1 + _r2) >> 1, (_g1 + _g2) >> 1, (_b1 + _b2) >> 1);
 }
 
 unsigned short blend_tint16(unsigned short color1, unsigned short color2)
 {
-    unsigned short c = tint16fp1(tintcolor, color1);
-    return tint16fp2 ? tint16fp2(c, color2) : c;
+	unsigned short c = tint16fp1(tintcolor, color1);
+	return tint16fp2 ? tint16fp2(c, color2) : c;
 }
 
 //copy from below
 unsigned short blend_rgbchannel16(unsigned short color1, unsigned short color2)
 {
-    return _color16(_channel16(_r1, _r2, channelr), _channel16(_g1, _g2, channelg), _channel16(_b1, _b2, channelb));
+	return _color16(_channel16(_r1, _r2, channelr), _channel16(_g1, _g2, channelg), _channel16(_b1, _b2, channelb));
 }
 
 unsigned short blend_channel16(unsigned short color1, unsigned short color2, unsigned a)
 {
-    return _color16(_channel16(_r1, _r2, a), _channel16(_g1, _g2, a), _channel16(_b1, _b2, a));
+	return _color16(_channel16(_r1, _r2, a), _channel16(_g1, _g2, a), _channel16(_b1, _b2, a));
 }
 
 unsigned char *blendtables[MAX_BLENDINGS] = {NULL, NULL, NULL, NULL, NULL, NULL};
@@ -618,48 +618,48 @@ blend32fp blendfunctions32[MAX_BLENDINGS] = {blend_screen32, blend_multiply32, b
 // are created by palette.c
 void set_blendtables(unsigned char *tables[])
 {
-    int i;
-    for(i = 0; i < MAX_BLENDINGS; i++)
-    {
-        blendtables[i] = tables[i];
-    }
+	int i;
+	for(i = 0; i < MAX_BLENDINGS; i++)
+	{
+		blendtables[i] = tables[i];
+	}
 }
 
 //getting too long so make 2 functions
 blend16fp getblendfunction16(int alpha)
 {
-    blend16fp fp = (alpha > 0) ? blendfunctions16[alpha - 1] : NULL;
-    //tint mode means tint the sprite with color
-    if(tintmode > 0)
-    {
-        tint16fp1 = blendfunctions16[tintmode - 1];
-        tint16fp2 = fp;
-        fp = blend_tint16;
-    }
-    //trick, alpha 6 and rgb channel are of the same group
-    else if(fp == blend_half16 && usechannel)
-    {
-        fp = blend_rgbchannel16;
-    }
+	blend16fp fp = (alpha > 0) ? blendfunctions16[alpha - 1] : NULL;
+	//tint mode means tint the sprite with color
+	if(tintmode > 0)
+	{
+		tint16fp1 = blendfunctions16[tintmode - 1];
+		tint16fp2 = fp;
+		fp = blend_tint16;
+	}
+	//trick, alpha 6 and rgb channel are of the same group
+	else if(fp == blend_half16 && usechannel)
+	{
+		fp = blend_rgbchannel16;
+	}
 
-    return fp;
+	return fp;
 }
 
 blend32fp getblendfunction32(int alpha)
 {
-    blend32fp fp = (alpha > 0) ? blendfunctions32[alpha - 1] : NULL;
-    if(tintmode > 0)
-    {
-        tint32fp1 = blendfunctions32[tintmode - 1];
-        tint32fp2 = fp;
-        fp = blend_tint32;
-    }
-    //trick, alpha 6 and rgb channel are of the same group
-    else if(fp == blend_half32 && usechannel)
-    {
-        fp = blend_rgbchannel32;
-    }
-    return fp;
+	blend32fp fp = (alpha > 0) ? blendfunctions32[alpha - 1] : NULL;
+	if(tintmode > 0)
+	{
+		tint32fp1 = blendfunctions32[tintmode - 1];
+		tint32fp2 = fp;
+		fp = blend_tint32;
+	}
+	//trick, alpha 6 and rgb channel are of the same group
+	else if(fp == blend_half32 && usechannel)
+	{
+		fp = blend_rgbchannel32;
+	}
+	return fp;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -675,85 +675,85 @@ blend32fp getblendfunction32(int alpha)
 //copy psrc to pdest, pdest reversed order
 void u8revcpy(unsigned char *pdest, const unsigned char *psrc, unsigned len)
 {
-    psrc -= 960 - (int)len;
-    pdest -= (int)len - 1;
-    switch(len)
-    {
-        _revcpy
-    }
-    len -= 255;
+	psrc -= 960 - (int)len;
+	pdest -= (int)len - 1;
+	switch(len)
+	{
+		_revcpy
+	}
+	len -= 255;
 }
 
 // reverse copy with a remap table
 void u8revpcpy(unsigned char *pdest, const unsigned char *psrc, unsigned char *pp, unsigned len)
 {
-    psrc -= 960 - (int)len;
-    pdest -= (int)len - 1;
-    switch(len)
-    {
-        _revpcpy
-    }
+	psrc -= 960 - (int)len;
+	pdest -= (int)len - 1;
+	switch(len)
+	{
+		_revpcpy
+	}
 }
 
 //copy with a remap table
 void u8pcpy(unsigned char *pdest, const unsigned char *psrc, unsigned char *pp, unsigned len)
 {
-    switch(len)
-    {
-        _pcpy
-    }
+	switch(len)
+	{
+		_pcpy
+	}
 }
 
 //----------16bit
 // reverse copy with a remap table
 void u16revpcpy(unsigned short *pdest, const unsigned char *psrc, unsigned short *pp, unsigned len)
 {
-    psrc -= 960 - (int)len;
-    pdest -= len - 1;
-    switch(len)
-    {
-        _revpcpy
-    }
+	psrc -= 960 - (int)len;
+	pdest -= len - 1;
+	switch(len)
+	{
+		_revpcpy
+	}
 }
 
 //copy with a remap table
 void u16pcpy(unsigned short *pdest, const unsigned char *psrc, unsigned short *pp, unsigned len)
 {
-    /*
-    	// plain testcode to measure if that fugly macro actually is that fast or just slows down compile time, and freezing my texteditor when selecting that line
-    	unsigned l;
-    	if (len) {
-    		l = len;
-    		if(l < 961)
-    			do {
-    				l--;
-    				pdest[l] = pp[psrc[l]];
-    			} while (l);
-    	}
-    	*/
-    switch(len)
-    {
-        _pcpy
-    }
+	/*
+		// plain testcode to measure if that fugly macro actually is that fast or just slows down compile time, and freezing my texteditor when selecting that line
+		unsigned l;
+		if (len) {
+			l = len;
+			if(l < 961)
+				do {
+					l--;
+					pdest[l] = pp[psrc[l]];
+				} while (l);
+		}
+		*/
+	switch(len)
+	{
+		_pcpy
+	}
 }
 
 void u32revpcpy(unsigned *pdest, const unsigned char *psrc, unsigned *pp, unsigned len)
 {
-    psrc -= 960 - (int)len;
-    pdest -= (int)len - 1;
-    switch(len)
-    {
-        _revpcpy
-    }
+	psrc -= 960 - (int)len;
+	pdest -= (int)len - 1;
+	switch(len)
+	{
+		_revpcpy
+	}
 }
 
 //copy with a remap table
 void u32pcpy(unsigned *pdest, const unsigned char *psrc, unsigned *pp, unsigned len)
 {
-    switch(len)
-    {
-        _pcpy
-    }
+	switch(len)
+	{
+		_pcpy
+	}
 }
 
 

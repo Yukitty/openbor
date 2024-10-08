@@ -18,99 +18,99 @@
 */ 
 HRESULT openbor_get_spawn_hud_property(ScriptVariant **varlist , ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME       "openbor_get_spawn_hud_property(void spawn_hud, int player_index, int property)"
-    #define ARG_MINIMUM     3   // Minimum required arguments.
-    #define ARG_OBJECT      0   // Handle (pointer to property structure).
-    #define ARG_INDEX       1   // Element to access.
-    #define ARG_PROPERTY    2   // Property to access.
+	#define SELF_NAME       "openbor_get_spawn_hud_property(void spawn_hud, int player_index, int property)"
+	#define ARG_MINIMUM     3   // Minimum required arguments.
+	#define ARG_OBJECT      0   // Handle (pointer to property structure).
+	#define ARG_INDEX       1   // Element to access.
+	#define ARG_PROPERTY    2   // Property to access.
 
-    s_spawn_hud**              handle;      
-    e_spawn_hud_properties	   property;
-    int                        index;       
+	s_spawn_hud**              handle;      
+	e_spawn_hud_properties	   property;
+	int                        index;       
 
-    /*
-    * Clear pass by reference argument used to send
-    * property data back to calling script.
-    */ 
-    ScriptVariant_Clear(*pretvar);
+	/*
+	* Clear pass by reference argument used to send
+	* property data back to calling script.
+	*/ 
+	ScriptVariant_Clear(*pretvar);
 
-    /*
-    * Verify arguments. There should at least
-    * be a pointer for the property handle, an integer
-    * to determine which handle element to access, and
-    * a property constant.
-    */
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_INDEX]->vt != VT_INTEGER
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
-    
-    /*
-    * Populate local vars for readability.
-    */
-
-    handle      = (s_spawn_hud **)varlist[ARG_OBJECT]->ptrVal;
-    index       = (LONG)varlist[ARG_INDEX]->lVal;
-    property    = (LONG)varlist[ARG_PROPERTY]->lVal;
-    
-    /*
-    * Catch out of bounds indexes.
-    */
-
-    if (index < 0 || index > (MAX_PLAYERS - 1))
-    {
-        printf("\n Index (%d) out of bounds (min 0, max %d).\n", index, MAX_PLAYERS - 1);
-        goto error_local;
-    }
+	/*
+	* Verify arguments. There should at least
+	* be a pointer for the property handle, an integer
+	* to determine which handle element to access, and
+	* a property constant.
+	*/
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_INDEX]->vt != VT_INTEGER
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 	
-    switch(property)
-    {
-        case SPAWN_HUD_PROPERTY_POSITION_X:
+	/*
+	* Populate local vars for readability.
+	*/
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle[index]->position.x;
+	handle      = (s_spawn_hud **)varlist[ARG_OBJECT]->ptrVal;
+	index       = (LONG)varlist[ARG_INDEX]->lVal;
+	property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	
+	/*
+	* Catch out of bounds indexes.
+	*/
 
-            break;
+	if (index < 0 || index > (MAX_PLAYERS - 1))
+	{
+		printf("\n Index (%d) out of bounds (min 0, max %d).\n", index, MAX_PLAYERS - 1);
+		goto error_local;
+	}
+	
+	switch(property)
+	{
+		case SPAWN_HUD_PROPERTY_POSITION_X:
 
-        case SPAWN_HUD_PROPERTY_POSITION_Y:
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle[index]->position.x;
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle[index]->position.y;
+			break;
 
-            break;
+		case SPAWN_HUD_PROPERTY_POSITION_Y:
 
-        case SPAWN_HUD_PROPERTY_SPRITE:
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle[index]->position.y;
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)handle[index]->sprite;
+			break;
 
-            break;
-        default:
+		case SPAWN_HUD_PROPERTY_SPRITE:
 
-            printf("\nUnknwon property.\n");
-            goto error_local;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)handle[index]->sprite;
 
-            break;
-    }
+			break;
+		default:
 
-    return S_OK;
+			printf("\nUnknwon property.\n");
+			goto error_local;
 
-    error_local:
+			break;
+	}
 
-    printf("\nYou must provide a valid pointer, index, and property constant: " SELF_NAME "\n");
-    *pretvar = NULL;
+	return S_OK;
 
-    return E_FAIL;
+	error_local:
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_PROPERTY
-    #undef ARG_OBJECT
-    #undef ARG_INDEX
+	printf("\nYou must provide a valid pointer, index, and property constant: " SELF_NAME "\n");
+	*pretvar = NULL;
+
+	return E_FAIL;
+
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_PROPERTY
+	#undef ARG_OBJECT
+	#undef ARG_INDEX
 }
 
 /*
@@ -123,115 +123,115 @@ HRESULT openbor_get_spawn_hud_property(ScriptVariant **varlist , ScriptVariant *
 */ 
 HRESULT openbor_set_spawn_hud_property(ScriptVariant **varlist, ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME           "openbor_set_spawn_hud_property(void spawn_hud, int player_index, int property, value)"
-    #define ARG_MINIMUM     4   // Minimum required arguments.
-    #define ARG_OBJECT      0   // Handle (pointer to property structure).
-    #define ARG_INDEX       1   // Element to access.
-    #define ARG_PROPERTY    2   // Property to access.
-    #define ARG_VALUE       3   // New value to apply.
+	#define SELF_NAME           "openbor_set_spawn_hud_property(void spawn_hud, int player_index, int property, value)"
+	#define ARG_MINIMUM     4   // Minimum required arguments.
+	#define ARG_OBJECT      0   // Handle (pointer to property structure).
+	#define ARG_INDEX       1   // Element to access.
+	#define ARG_PROPERTY    2   // Property to access.
+	#define ARG_VALUE       3   // New value to apply.
 
-    int                     result = S_OK; // Success or error?
-    s_spawn_hud**           handle;
-    e_spawn_hud_properties  property;
-    int                     index;
+	int                     result = S_OK; // Success or error?
+	s_spawn_hud**           handle;
+	e_spawn_hud_properties  property;
+	int                     index;
 
-    /* 
-    * Value carriers to apply on properties after
-    * taken from argument.
-    */
-    LONG    temp_int;
+	/* 
+	* Value carriers to apply on properties after
+	* taken from argument.
+	*/
+	LONG    temp_int;
 
-    /*
-    * Clear pass by reference argument used to send
-    * property data back to calling script.
-    */
-    ScriptVariant_Clear(*pretvar);
+	/*
+	* Clear pass by reference argument used to send
+	* property data back to calling script.
+	*/
+	ScriptVariant_Clear(*pretvar);
 
-    /*
-    * Verify arguments. There should at least
-    * be a pointer for the property handle, an integer
-    * to determine which handle element to access, and
-    * a property constant.
-    */
-    if (paramCount < ARG_MINIMUM
-        || varlist[ARG_OBJECT]->vt != VT_PTR
-        || varlist[ARG_INDEX]->vt != VT_INTEGER
-        || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
+	/*
+	* Verify arguments. There should at least
+	* be a pointer for the property handle, an integer
+	* to determine which handle element to access, and
+	* a property constant.
+	*/
+	if (paramCount < ARG_MINIMUM
+		|| varlist[ARG_OBJECT]->vt != VT_PTR
+		|| varlist[ARG_INDEX]->vt != VT_INTEGER
+		|| varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 
-    /*
-    * Populate local vars for readability.
-    */
+	/*
+	* Populate local vars for readability.
+	*/
 
-    handle = (s_spawn_hud**)varlist[ARG_OBJECT]->ptrVal;
-    index = (LONG)varlist[ARG_INDEX]->lVal;
-    property = (LONG)varlist[ARG_PROPERTY]->lVal;
+	handle = (s_spawn_hud**)varlist[ARG_OBJECT]->ptrVal;
+	index = (LONG)varlist[ARG_INDEX]->lVal;
+	property = (LONG)varlist[ARG_PROPERTY]->lVal;
 
-    /*
-    * Catch out of bounds indexes.
-    */
+	/*
+	* Catch out of bounds indexes.
+	*/
 
-    if (index < 0 || index > (MAX_PLAYERS - 1))
-    {
-        printf("\n Index (%d) out of bounds (min 0, max %d).\n", index, MAX_PLAYERS - 1);
-        goto error_local;
-    }
+	if (index < 0 || index > (MAX_PLAYERS - 1))
+	{
+		printf("\n Index (%d) out of bounds (min 0, max %d).\n", index, MAX_PLAYERS - 1);
+		goto error_local;
+	}
 
-    // Which property to modify?
-    switch(property)
-    {
-        case SPAWN_HUD_PROPERTY_POSITION_X:
+	// Which property to modify?
+	switch(property)
+	{
+		case SPAWN_HUD_PROPERTY_POSITION_X:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle[index]->position.x = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle[index]->position.x = temp_int;
+			}
 
-            break;
+			break;
 
-        case SPAWN_HUD_PROPERTY_POSITION_Y:
+		case SPAWN_HUD_PROPERTY_POSITION_Y:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle[index]->position.y = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle[index]->position.y = temp_int;
+			}
 
-            break;
+			break;
 
-        case SPAWN_HUD_PROPERTY_SPRITE:
+		case SPAWN_HUD_PROPERTY_SPRITE:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                handle[index]->sprite = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				handle[index]->sprite = temp_int;
+			}
 
-            break;
+			break;
 
-        default:
+		default:
 
-            printf("Unsupported property.\n");
-            goto error_local;
+			printf("Unsupported property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return result;
+	return result;
 
-    // Error trapping.
-    error_local:
+	// Error trapping.
+	error_local:
 
-    printf("\nYou must provide a valid pointer, index, property constant, and new value: " SELF_NAME "\n");
+	printf("\nYou must provide a valid pointer, index, property constant, and new value: " SELF_NAME "\n");
 
-    result = E_FAIL;
-    return result;
+	result = E_FAIL;
+	return result;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_INDEX
-    #undef ARG_PROPERTY
-    #undef ARG_VALUE
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_INDEX
+	#undef ARG_PROPERTY
+	#undef ARG_VALUE
 }

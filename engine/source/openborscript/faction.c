@@ -18,37 +18,37 @@
 */
 HRESULT openbor_get_faction_property(ScriptVariant **varlist , ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME       "openbor_get_faction_property(void pointer, char property)"
-    #define ARG_MINIMUM     2   // Minimum required arguments.
-    #define ARG_OBJECT      0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY    1   // Property to access.
+	#define SELF_NAME       "openbor_get_faction_property(void pointer, char property)"
+	#define ARG_MINIMUM     2   // Minimum required arguments.
+	#define ARG_OBJECT      0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY    1   // Property to access.
 
 	s_faction				*handle     = NULL; // Property handle.
 	e_faction_properties	property   = 0;    // Property argument.
 
-    // Clear pass by reference argument used to send
-    // property data back to calling script.
-    ScriptVariant_Clear(*pretvar);
+	// Clear pass by reference argument used to send
+	// property data back to calling script.
+	ScriptVariant_Clear(*pretvar);
 
-    // Verify arguments. There should at least
-    // be a pointer for the property handle and an integer
-    // to determine which property constant is accessed.
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
-    else
-    {
-        // Populate local vars for readability.
-        handle      = (s_faction*)varlist[ARG_OBJECT]->ptrVal;
-        property    = (LONG)varlist[ARG_PROPERTY]->lVal;
-    }
+	// Verify arguments. There should at least
+	// be a pointer for the property handle and an integer
+	// to determine which property constant is accessed.
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
+	else
+	{
+		// Populate local vars for readability.
+		handle      = (s_faction*)varlist[ARG_OBJECT]->ptrVal;
+		property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	}
 	
-    switch(property)
-    {
+	switch(property)
+	{
 		case FACTION_PROPERTY_GROUP_DAMAGE_DIRECT:
 
 			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
@@ -98,27 +98,27 @@ HRESULT openbor_get_faction_property(ScriptVariant **varlist , ScriptVariant **p
 
 			break;
 
-        default:
+		default:
 
-            printf("Unsupported property.\n");
-            goto error_local;
+			printf("Unsupported property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return S_OK;
+	return S_OK;
 
-    error_local:
+	error_local:
 
-    printf("You must provide a valid handle and property name: " SELF_NAME "\n");
-    *pretvar = NULL;
+	printf("You must provide a valid handle and property name: " SELF_NAME "\n");
+	*pretvar = NULL;
 
-    return E_FAIL;
+	return E_FAIL;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_INDEX
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_INDEX
 }
 
 /*
@@ -131,42 +131,42 @@ HRESULT openbor_get_faction_property(ScriptVariant **varlist , ScriptVariant **p
 */
 HRESULT openbor_set_faction_property(ScriptVariant **varlist, ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME           "openbor_set_faction_property(void handle, char property, value)"
-    #define ARG_MINIMUM         3   // Minimum required arguments.
-    #define ARG_OBJECT          0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY        1   // Property to access.
-    #define ARG_VALUE           2   // New value to apply.
+	#define SELF_NAME           "openbor_set_faction_property(void handle, char property, value)"
+	#define ARG_MINIMUM         3   // Minimum required arguments.
+	#define ARG_OBJECT          0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY        1   // Property to access.
+	#define ARG_VALUE           2   // New value to apply.
 
-    int						result     = S_OK; // Success or error?
-    s_faction*				handle     = NULL; // Property handle.
-    e_faction_properties	property   = 0;    // Property to access.
+	int						result     = S_OK; // Success or error?
+	s_faction*				handle     = NULL; // Property handle.
+	e_faction_properties	property   = 0;    // Property to access.
 
-    // Value carriers to apply on properties after
-    // taken from argument.
-    LONG    temp_int;
+	// Value carriers to apply on properties after
+	// taken from argument.
+	LONG    temp_int;
 
 	// Map string property name to a
 	// matching integer constant.
 	//mapstrings_faction_property(varlist, paramCount);
 	
-    // Verify incoming arguments. There should at least
-    // be a pointer for the property handle and an integer
-    // to determine which property is accessed.
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
+	// Verify incoming arguments. There should at least
+	// be a pointer for the property handle and an integer
+	// to determine which property is accessed.
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 
-    // Populate local handle and property vars.
-    handle      = (s_faction *)varlist[ARG_OBJECT]->ptrVal;
-    property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	// Populate local handle and property vars.
+	handle      = (s_faction *)varlist[ARG_OBJECT]->ptrVal;
+	property    = (LONG)varlist[ARG_PROPERTY]->lVal;
 
-    // Which property to modify?
-    switch(property)
-    {
+	// Which property to modify?
+	switch(property)
+	{
 
 		case FACTION_PROPERTY_GROUP_DAMAGE_DIRECT:
 
@@ -177,14 +177,14 @@ HRESULT openbor_set_faction_property(ScriptVariant **varlist, ScriptVariant **pr
 
 			break;
 
-        case FACTION_PROPERTY_GROUP_DAMAGE_INDIRECT:
+		case FACTION_PROPERTY_GROUP_DAMAGE_INDIRECT:
 
 			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
 			{
 				handle->damage_indirect = temp_int;
 			}
 
-            break;
+			break;
 
 		case FACTION_PROPERTY_GROUP_HOSTILE:
 
@@ -231,27 +231,27 @@ HRESULT openbor_set_faction_property(ScriptVariant **varlist, ScriptVariant **pr
 
 			break;
 
-        default:
+		default:
 
-            printf("Unsupported property.\n");
-            goto error_local;
+			printf("Unsupported property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return result;
+	return result;
 
-    // Error trapping.
-    error_local:
+	// Error trapping.
+	error_local:
 
-    printf("You must provide a valid handle, property, and new value: " SELF_NAME "\n");
+	printf("You must provide a valid handle, property, and new value: " SELF_NAME "\n");
 
-    result = E_FAIL;
-    return result;
+	result = E_FAIL;
+	return result;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_PROPERTY
-    #undef ARG_VALUE
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_PROPERTY
+	#undef ARG_VALUE
 }

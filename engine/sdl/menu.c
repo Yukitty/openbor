@@ -503,9 +503,9 @@ static void termMenu()
 
 static void blit_video_menu(s_screen* vscreen)
 {
-    video_stretch(1); // set to fullscreen
-    video_copy_screen(vscreen);
-    video_stretch(savedata.stretch); // reset to saved value
+	video_stretch(1); // set to fullscreen
+	video_copy_screen(vscreen);
+	video_stretch(savedata.stretch); // reset to saved value
 }
 
 static void drawMenu()
@@ -709,22 +709,22 @@ static void drawLogs()
 */
 static void drawLogo()
 {
-    int i;
-    int delay = 200;
+	int i;
+	int delay = 200;
 	FILE *logoff;
-    char *path = "paks/logoff.txt";
-    logoff = fopen(path, "rb");
+	char *path = "paks/logoff.txt";
+	logoff = fopen(path, "rb");
 
-    if(logoff){savedata.logo = 1;}
-    if(savedata.logo) return;
+	if(logoff){savedata.logo = 1;}
+	if(savedata.logo) return;
 
 	initMenu(0);
 
 	for(i = 0; i < delay; i++)
-    {
-        blit_video_menu(bgscreen);
-        SDL_Delay(1);
-    }
+	{
+		blit_video_menu(bgscreen);
+		SDL_Delay(1);
+	}
 
 	termMenu();
 }
@@ -784,11 +784,11 @@ void Menu()
 				    if (dListTotal > 0) drawBGMPlayer();
 					break;
 
-                default:
+				default:
 					break;
 			}
 
-            blit_video_menu(vscreen);
+			blit_video_menu(vscreen);
 		}
 		freeAllLogs();
 		termMenu();
@@ -808,4 +808,3 @@ void Menu()
 	// Restore pixelformat default value.
 	pixelformat = PIXEL_x8;
 }
-

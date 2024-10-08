@@ -18,113 +18,113 @@
 */ 
 HRESULT openbor_get_colorset_property(ScriptVariant **varlist , ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME       "openbor_get_colorset_property(void colorset, int property)"
-    #define ARG_MINIMUM     2   // Minimum required arguments.
-    #define ARG_OBJECT      0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY    1   // Property to access.
+	#define SELF_NAME       "openbor_get_colorset_property(void colorset, int property)"
+	#define ARG_MINIMUM     2   // Minimum required arguments.
+	#define ARG_OBJECT      0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY    1   // Property to access.
 
-    s_colorset*               object     = NULL; // Property object.
-    e_colorset_properties	   property    = 0;    // Property argument.
+	s_colorset*               object     = NULL; // Property object.
+	e_colorset_properties	   property    = 0;    // Property argument.
 
-    /*
-    * Clear pass by reference argument used to send
-    * property data back to calling script.
-    */
-    ScriptVariant_Clear(*pretvar);
+	/*
+	* Clear pass by reference argument used to send
+	* property data back to calling script.
+	*/
+	ScriptVariant_Clear(*pretvar);
 
-    /*
-    * Verify arguments. There should at least
-    * be a pointer for the property object and an integer
-    * to determine which property constant is accessed.
-    */
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
-    
-    /* 
-    * We use local variables for downstream
-    * readability. Populate them here.
-    */ 
-    object      = (s_colorset *)varlist[ARG_OBJECT]->ptrVal;
-    property    = (LONG)varlist[ARG_PROPERTY]->lVal;
-    
+	/*
+	* Verify arguments. There should at least
+	* be a pointer for the property object and an integer
+	* to determine which property constant is accessed.
+	*/
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 	
-    switch(property)
-    {
-        case COLORSET_PROPERTY_BURN:
+	/* 
+	* We use local variables for downstream
+	* readability. Populate them here.
+	*/ 
+	object      = (s_colorset *)varlist[ARG_OBJECT]->ptrVal;
+	property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	
+	
+	switch(property)
+	{
+		case COLORSET_PROPERTY_BURN:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->burn;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->burn;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_FROZEN:
+		case COLORSET_PROPERTY_FROZEN:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->frozen;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->frozen;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_HIDE_END:
+		case COLORSET_PROPERTY_HIDE_END:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->hide_end;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->hide_end;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_HIDE_START:
+		case COLORSET_PROPERTY_HIDE_START:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->hide_start;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->hide_start;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_KO:
+		case COLORSET_PROPERTY_KO:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->ko;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->ko;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_KO_CONFIG:
+		case COLORSET_PROPERTY_KO_CONFIG:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (e_ko_colorset_config)object->kotype;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (e_ko_colorset_config)object->kotype;
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_SHOCK:
+		case COLORSET_PROPERTY_SHOCK:
 
-            ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
-            (*pretvar)->lVal = (LONG)object->shock;
+			ScriptVariant_ChangeType(*pretvar, VT_INTEGER);
+			(*pretvar)->lVal = (LONG)object->shock;
 
-            break;
+			break;
 
-        default:
+		default:
 
-            printf("Unknwon property.\n");
-            goto error_local;
+			printf("Unknwon property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return S_OK;
+	return S_OK;
 
-    error_local:
+	error_local:
 
-    printf("\nYou must provide a valid pointer and property constant: " SELF_NAME "\n");
-    *pretvar = NULL;
+	printf("\nYou must provide a valid pointer and property constant: " SELF_NAME "\n");
+	*pretvar = NULL;
 
-    return E_FAIL;
+	return E_FAIL;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_PROPERTY
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_PROPERTY
 }
 
 /*
@@ -137,129 +137,129 @@ HRESULT openbor_get_colorset_property(ScriptVariant **varlist , ScriptVariant **
 */ 
 HRESULT openbor_set_colorset_property(ScriptVariant **varlist, ScriptVariant **pretvar, int paramCount)
 {
-    #define SELF_NAME           "openbor_set_colorset_property(void colorset, int property, value)"
-    #define ARG_MINIMUM         3   // Minimum required arguments.
-    #define ARG_OBJECT          0   // Handle (pointer to property structure).
-    #define ARG_PROPERTY        1   // Property to access.
-    #define ARG_VALUE           2   // New value to apply.
+	#define SELF_NAME           "openbor_set_colorset_property(void colorset, int property, value)"
+	#define ARG_MINIMUM         3   // Minimum required arguments.
+	#define ARG_OBJECT          0   // Handle (pointer to property structure).
+	#define ARG_PROPERTY        1   // Property to access.
+	#define ARG_VALUE           2   // New value to apply.
 
-    int                 result      = S_OK; // Success or error?
-    s_colorset*             object     = NULL; // Property object.
-    e_colorset_properties	property    = 0;    // Property to access.
+	int                 result      = S_OK; // Success or error?
+	s_colorset*             object     = NULL; // Property object.
+	e_colorset_properties	property    = 0;    // Property to access.
 
-    /* 
-    * Value carriers to apply on properties after
-    * taken from argument.
-    */
-    LONG    temp_int;
+	/* 
+	* Value carriers to apply on properties after
+	* taken from argument.
+	*/
+	LONG    temp_int;
 		
-    /*
-    * Verify incoming arguments.There should at least
-    * be a pointer for the property object and an integer
-    * to determine which property is accessed.
-    */
-    if(paramCount < ARG_MINIMUM
-       || varlist[ARG_OBJECT]->vt != VT_PTR
-       || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
-    {
-        *pretvar = NULL;
-        goto error_local;
-    }
+	/*
+	* Verify incoming arguments.There should at least
+	* be a pointer for the property object and an integer
+	* to determine which property is accessed.
+	*/
+	if(paramCount < ARG_MINIMUM
+	   || varlist[ARG_OBJECT]->vt != VT_PTR
+	   || varlist[ARG_PROPERTY]->vt != VT_INTEGER)
+	{
+		*pretvar = NULL;
+		goto error_local;
+	}
 
-    /*
-    * We use local variables for downstream
-    * readability. Populate them here.
-    */
+	/*
+	* We use local variables for downstream
+	* readability. Populate them here.
+	*/
 
-    object      = (s_colorset *)varlist[ARG_OBJECT]->ptrVal;
-    property    = (LONG)varlist[ARG_PROPERTY]->lVal;
-    
-    switch(property)
-    {
-        case COLORSET_PROPERTY_BURN:
+	object      = (s_colorset *)varlist[ARG_OBJECT]->ptrVal;
+	property    = (LONG)varlist[ARG_PROPERTY]->lVal;
+	
+	switch(property)
+	{
+		case COLORSET_PROPERTY_BURN:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->burn = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->burn = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_FROZEN:
+		case COLORSET_PROPERTY_FROZEN:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->frozen = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->frozen = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_HIDE_END:
+		case COLORSET_PROPERTY_HIDE_END:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->hide_end = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->hide_end = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_HIDE_START:
+		case COLORSET_PROPERTY_HIDE_START:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->hide_start = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->hide_start = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_KO:
+		case COLORSET_PROPERTY_KO:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->ko = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->ko = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_KO_CONFIG:
+		case COLORSET_PROPERTY_KO_CONFIG:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->kotype = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->kotype = temp_int;
+			}
 
-            break;
+			break;
 
-        case COLORSET_PROPERTY_SHOCK:
+		case COLORSET_PROPERTY_SHOCK:
 
-            if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
-            {
-                object->shock = temp_int;
-            }
+			if (SUCCEEDED(ScriptVariant_IntegerValue(varlist[ARG_VALUE], &temp_int)))
+			{
+				object->shock = temp_int;
+			}
 
-            break;
+			break;
 
-        default:
+		default:
 
-            printf("Unsupported property.\n");
-            goto error_local;
+			printf("Unsupported property.\n");
+			goto error_local;
 
-            break;
-    }
+			break;
+	}
 
-    return result;
+	return result;
 
-    // Error trapping.
-    error_local:
+	// Error trapping.
+	error_local:
 
-    printf("\nYou must provide a valid pointer, property constant, and new value: " SELF_NAME "\n");
+	printf("\nYou must provide a valid pointer, property constant, and new value: " SELF_NAME "\n");
 
-    result = E_FAIL;
-    return result;
+	result = E_FAIL;
+	return result;
 
-    #undef SELF_NAME
-    #undef ARG_MINIMUM
-    #undef ARG_OBJECT
-    #undef ARG_PROPERTY
-    #undef ARG_VALUE
+	#undef SELF_NAME
+	#undef ARG_MINIMUM
+	#undef ARG_OBJECT
+	#undef ARG_PROPERTY
+	#undef ARG_VALUE
 }

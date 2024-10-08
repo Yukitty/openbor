@@ -60,7 +60,5 @@ void set_last_interval(unsigned value)
 
 void set_ticks(unsigned value)
 {
-    newticks = value;
+	newticks = value;
 }
-
-
